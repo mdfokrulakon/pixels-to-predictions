@@ -1,0 +1,33 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pixels to Predictions | Learn Data, ML, Deep Learning and Vision</title>
+<meta name="description" content="Free, colourful courses in image processing, data analysis, machine learning, deep learning and computer vision.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script></head><body>
+<header class="topbar"><a class="logo" href="index.html">Pixels → Predictions</a>
+<nav><a href="#tracks">Tracks</a><a href="#courses">Courses</a><button class="iconbtn" id="theme" aria-label="Toggle theme">🌓</button></nav></header>
+<main class="wrap">
+<section class="hero"><h1>Learn <span class="grad">data, images and AI</span><br>one course at a time</h1>
+<p>Free, step-by-step courses in image processing, data analysis, machine learning, deep learning and computer vision.</p>
+<a class="btn" href="courses/time-series.html">Start with Time Series →</a><a class="btn ghost" href="#tracks">Browse tracks</a></section>
+<section class="block" id="tracks"><h2>Learning tracks</h2><p class="sub">Pick a track to filter the courses.</p><div class="grid" id="trackGrid"></div></section>
+<section class="block" id="courses"><h2>Courses</h2><p class="sub" id="filterNote">All courses</p><div class="grid" id="courseGrid"></div></section>
+<section class="block"><h2>How to learn here</h2><p class="sub">The same simple loop in every course.</p>
+<div class="steps"><div><b>Read</b><br>Short explanations in plain language, with examples.</div><div><b>Practise</b><br>Run the code and finish the practice task on your own data.</div><div><b>Check</b><br>Answer the self-check questions, then compare with the answer key.</div></div></section>
+</main><footer>Made with ❤️ for learners · more courses coming soon</footer>
+<script src="assets/courses.js"></script>
+<script>
+var active=null,T=document.getElementById("trackGrid"),C=document.getElementById("courseGrid"),N=document.getElementById("filterNote");
+function track(id){return TRACKS.find(function(t){return t.id===id})}
+function drawTracks(){T.innerHTML="";TRACKS.forEach(function(t){var n=COURSES.filter(function(c){return c.track===t.id}).length,d=document.createElement("div");
+d.className="track"+(active===t.id?" on":"");d.style.setProperty("--c",t.color);
+d.innerHTML='<span class="ic">'+t.icon+'</span><h3>'+t.name+'</h3><p>'+t.blurb+'</p><span class="tag'+(n?"":" soon")+'">'+(n?n+" course"+(n>1?"s":""):"Coming soon")+'</span>';
+d.onclick=function(){active=active===t.id?null:t.id;drawTracks();drawCourses();document.getElementById("courses").scrollIntoView()};T.appendChild(d)})}
+function drawCourses(){C.innerHTML="";var list=COURSES.filter(function(c){return!active||c.track===active});
+N.textContent=active?track(active).name+" courses":"All courses";
+if(!list.length){C.innerHTML='<p class="sub">Courses for this track are coming soon.</p>';return}
+list.forEach(function(c){var t=track(c.track),a=document.createElement("a");a.className="course";a.href=c.url;a.style.setProperty("--c",t.color);
+a.innerHTML='<div class="meta"><span>'+t.icon+" "+t.name+'</span><span>'+c.level+'</span><span>'+c.time+'</span><span>'+c.modules+'</span></div><h3>'+c.title+'</h3><p>'+c.blurb+'</p><b style="color:'+t.color+'">Start learning →</b>';C.appendChild(a)})}
+drawTracks();drawCourses();
+document.getElementById("theme").onclick=function(){var r=document.documentElement,n=r.dataset.theme==="dark"?"light":"dark";r.dataset.theme=n;try{localStorage.setItem("theme",n)}catch(e){}};
+</script></body></html>
