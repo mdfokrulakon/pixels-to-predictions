@@ -1,0 +1,10 @@
+(function(){var d=document,bar=d.getElementById("bar"),links=[].slice.call(d.querySelectorAll(".toc a")),mods=[].slice.call(d.querySelectorAll("section.module"));
+d.getElementById("theme").onclick=function(){var r=d.documentElement,n=r.dataset.theme==="dark"?"light":"dark";r.dataset.theme=n;try{localStorage.setItem("theme",n)}catch(e){}};
+d.getElementById("tocbtn").onclick=function(){d.querySelector(".toc").classList.toggle("open")};
+links.forEach(function(a){a.onclick=function(){d.querySelector(".toc").classList.remove("open")}});
+addEventListener("scroll",function(){var h=d.documentElement;bar.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+"%"});
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");links.forEach(function(a){a.classList.toggle("on",a.getAttribute("href")==="#"+e.target.id)})}})},{rootMargin:"-20% 0px -60% 0px"});
+mods.forEach(function(m){io.observe(m);if(m.getBoundingClientRect().top<innerHeight)m.classList.add("in")});
+setTimeout(function(){mods.forEach(function(m){m.classList.add("in")})},2500);
+d.querySelectorAll("pre").forEach(function(p){var b=d.createElement("button");b.className="copy";b.textContent="Copy";b.onclick=function(){navigator.clipboard.writeText(p.innerText.replace(/Copy$/,"")).then(function(){b.textContent="Copied!";setTimeout(function(){b.textContent="Copy"},1500)})};p.appendChild(b)});
+if(window.hljs){d.querySelectorAll("pre code").forEach(function(c){hljs.highlightElement(c)})}})();

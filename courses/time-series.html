@@ -1,0 +1,1574 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Time Series Analysis and Forecasting: A Beginner-to-Intermediate Course | Pixels to Predictions</title><meta name="description" content="A reading course in Python. Each module explains the idea in plain language, shows short code, lists common mistakes, and ends with a practice task and sel">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Inter:wght@400;600&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+<link rel="stylesheet" href="../assets/site.css"><link rel="stylesheet" href="../assets/course.css">
+<script>document.documentElement.classList.add("js");try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script></head><body>
+<div id="bar"></div>
+<header class="topbar"><a class="logo" href="../index.html">Pixels → Predictions</a><nav><a href="../index.html#courses">← All courses</a><button class="iconbtn" id="tocbtn">☰ Contents</button><button class="iconbtn" id="theme" aria-label="Toggle theme">🌓</button></nav></header>
+<div class="layout"><aside class="toc"><b>Contents</b><a href="#start" style="--hue:#6366f1">Course overview</a><a href="#s0" style="--hue:#6366f1">Module 0: What Is a Time Series?</a><a href="#s1" style="--hue:#ec4899">Module 1: Working with Time Data in pandas</a><a href="#s2" style="--hue:#f59e0b">Module 2: Trend, Seasonality, Noise and Decomposition</a><a href="#s3" style="--hue:#10b981">Module 3: Exploring a Series Visually</a><a href="#s4" style="--hue:#06b6d4">Module 4: Stationarity and Differencing</a><a href="#s5" style="--hue:#8b5cf6">Module 5: Autocorrelation: ACF and PACF</a><a href="#s6" style="--hue:#ef4444">Module 6: Splitting, Baselines, Metrics and Validation</a><a href="#s7" style="--hue:#14b8a6">Module 7: Simple Forecasting Methods</a><a href="#s8" style="--hue:#6366f1">Module 8: Exponential Smoothing</a><a href="#s9" style="--hue:#ec4899">Module 9: ARIMA</a><a href="#s10" style="--hue:#f59e0b">Module 10: SARIMA, SARIMAX and Fourier Terms</a><a href="#s11" style="--hue:#10b981">Module 11: Other Classical Methods and Transformations</a><a href="#s12" style="--hue:#06b6d4">Module 12: Machine Learning for Forecasting</a><a href="#s13" style="--hue:#8b5cf6">Module 13: Uncertainty and Comparing Models</a><a href="#s14" style="--hue:#ef4444">Module 14: Advanced Topics: Where to Go Next</a><a href="#s15" style="--hue:#14b8a6">Module 15: Doing a Complete Project</a><a href="#s16" style="--hue:#6366f1">Appendix A: Glossary</a><a href="#s17" style="--hue:#ec4899">Appendix B: Answer Key</a><a href="#s18" style="--hue:#f59e0b">Appendix C: Quick Code Reference (statsmodels and pandas)</a><a href="#s19" style="--hue:#10b981">Appendix D: Videos and Further Reading</a></aside><main><header class="hero"><h1>Time Series Analysis and Forecasting: A Beginner-to-Intermediate Course</h1><p><strong>A reading course in Python.</strong> Each module explains the idea in plain language, shows short code, lists common mistakes, and ends with a practice task and self-check questions. Answers to the questions are in Appendix B.</p><div class="chips"><span>📚 16 modules</span><span>🐍 Python</span><span>⏱️ about 12 weeks</span></div></header><section class="module" id="start" style="--hue:#6366f1"><div class="module-head"><span class="icon">🧭</span><h1>Start here</h1></div><h2>How to Use This Course</h2><p><strong>Time needed:</strong> about 12 weeks at 6–8 hours a week. Each module is 2–4 hours of reading plus 1–3 hours of practice.</p><p><strong>Study method (for every module)</strong></p><ol>
+<li>Read the module once without coding.</li>
+<li>Re-read it and run the code on a dataset of your own.</li>
+<li>Do the practice task.</li>
+<li>Answer the self-check questions <em>before</em> looking at Appendix B.</li>
+<li>Write five lines in your own words: <em>what is it, why do we use it, how do I know it worked?</em></li>
+</ol><p><strong>Prerequisites:</strong> basic Python, and a feeling for mean, variance, correlation and p-values. Everything else is explained here.</p><p><strong>Libraries used:</strong> pandas, NumPy, Matplotlib, statsmodels, scikit-learn.</p><h3>Course Map</h3><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Module</th>
+<th>Topic</th>
+<th>Weeks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>What a time series is, and the forecasting workflow</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Working with time data in pandas</td>
+<td>1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Trend, seasonality, noise and decomposition</td>
+<td>2</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Exploring a series visually</td>
+<td>2</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Stationarity and differencing</td>
+<td>3</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Autocorrelation: ACF and PACF</td>
+<td>3</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Splitting, baselines, metrics and validation</td>
+<td>4</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Simple forecasting methods</td>
+<td>4</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Exponential smoothing</td>
+<td>5</td>
+</tr>
+<tr>
+<td>9</td>
+<td>ARIMA</td>
+<td>6</td>
+</tr>
+<tr>
+<td>10</td>
+<td>SARIMA, SARIMAX and Fourier terms</td>
+<td>7</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Other classical methods: STL, Theta, transformations</td>
+<td>7</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Machine learning for forecasting</td>
+<td>9</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Uncertainty and comparing models</td>
+<td>10</td>
+</tr>
+<tr>
+<td>14</td>
+<td>Advanced topics: where to go next</td>
+<td>11</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Doing a complete project</td>
+<td>12</td>
+</tr>
+</tbody>
+</table></div></section><section class="module" id="s0" style="--hue:#6366f1"><div class="module-head"><span class="icon">🧭</span><h1>Module 0: What Is a Time Series?</h1></div><h2>0.1 Definition</h2><p>A <strong>time series</strong> is a set of observations recorded <strong>in time order</strong>, usually at regular intervals: daily temperature, monthly sales, hourly electricity demand, daily website visitors.</p><p>The key difference from ordinary tabular data is that <strong>order matters and observations are not independent</strong>. Today's temperature is related to yesterday's. This dependence is what we model, and it is also why ordinary methods (random train/test splits, plain cross-validation) fail.</p><h2>0.2 Two goals</h2><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Goal</th>
+<th>Question</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Analysis</strong></td>
+<td>What structure does the data have?</td>
+<td>Is traffic lower on weekends? Is there a trend?</td>
+</tr>
+<tr>
+<td><strong>Forecasting</strong></td>
+<td>What will happen next?</td>
+<td>How many visitors tomorrow?</td>
+</tr>
+</tbody>
+</table></div><p>Analysis helps forecasting: understanding the structure lets you choose a better model.</p><h2>0.3 Types of series</h2><ul>
+<li><strong>Univariate:</strong> one variable over time (daily temperature).</li>
+<li><strong>Multivariate:</strong> several variables over time (temperature, humidity, pressure).</li>
+<li><strong>Regular vs irregular:</strong> regular series have fixed spacing (daily); irregular ones do not (sensor events).</li>
+<li><strong>Continuous vs count:</strong> temperature is continuous; visitor counts are non-negative integers, usually right-skewed.</li>
+</ul><h2>0.4 Frequency and horizon</h2><ul>
+<li><strong>Frequency:</strong> how often data is recorded (hourly, daily, weekly, monthly, quarterly, yearly).</li>
+<li><strong>Forecast horizon (h):</strong> how far ahead you forecast. "Next 7 days" means h = 7.</li>
+<li>Short horizons rely on recent values; long horizons rely on seasonality and trend. <strong>Accuracy usually falls as the horizon grows.</strong></li>
+</ul><h2>0.5 The forecasting workflow</h2><ol>
+<li><strong>Define the problem:</strong> what is forecast, at what frequency, how far ahead, and how will it be used?</li>
+<li><strong>Collect and clean the data:</strong> datetime index, missing values, abnormal values.</li>
+<li><strong>Explore:</strong> plots, seasonality, trend, stationarity, autocorrelation.</li>
+<li><strong>Split chronologically</strong> into training and test data. (Do this <em>before</em> exploring too deeply, so the test data cannot influence your choices.)</li>
+<li><strong>Build baselines, then models.</strong> Always beat the simple methods first.</li>
+<li><strong>Evaluate</strong> on data the model has not seen. Check residuals.</li>
+<li><strong>Forecast the future</strong> with prediction intervals.</li>
+<li><strong>Communicate</strong> results, assumptions and limits.</li>
+<li><strong>Monitor and update</strong> as new data arrives.</li>
+</ol><h2>0.6 Forecasts are never certain</h2><p>A forecast is an estimate of a <em>distribution</em> of future values. Good forecasting reports a central value <strong>and</strong> the uncertainty around it.</p><div class="callout check"><h3>Check yourself (Module 0)</h3><ol>
+<li>Why can't you randomly shuffle a time series before splitting it?</li>
+<li>What is the forecast horizon?</li>
+<li>Name the first two steps of the workflow.</li>
+</ol></div><div class="pn"><span></span><a href="#s1">Module 1 →</a></div></section><section class="module" id="s1" style="--hue:#ec4899"><div class="module-head"><span class="icon">🐼</span><h1>Module 1: Working with Time Data in pandas</h1></div><h2>1.1 Datetime and the index</h2><p>Most raw files store dates as text. Convert them, sort, and make the date the index:</p><pre data-lang="python"><code class="language-python">import pandas as pd
+
+df = pd.read_csv("sales.csv")
+df["date"] = pd.to_datetime(df["date"])
+df = df.sort_values("date").set_index("date")
+</code></pre><p>A <strong>DatetimeIndex</strong> unlocks time-based slicing:</p><pre data-lang="python"><code class="language-python">df.loc["2024-03"]              # all of March 2024
+df.loc["2024-01-01":"2024-03-31"]
+df.index.dayofweek             # 0 = Monday
+df.index.day_name()
+df.index.month
+</code></pre><h2>1.2 Frequency</h2><p>Most models need a <strong>regular, gap-free index with a declared frequency</strong>:</p><pre data-lang="python"><code class="language-python">expected = pd.date_range(df.index.min(), df.index.max(), freq="D")
+missing_days = expected.difference(df.index)   # which dates are absent?
+df = df.asfreq("D")                            # missing days become NaN
+</code></pre><p>Common frequency codes: <code>D</code> day, <code>W</code> week, <code>MS</code> month start, <code>ME</code> month end, <code>QS</code> quarter start, <code>YS</code> year start, <code>h</code> hour. (In recent pandas versions, <code>M</code> was replaced by <code>ME</code>.)</p><h2>1.3 Resampling</h2><p><strong>Resampling</strong> changes the frequency. You must choose an aggregation that matches the meaning of the variable:</p><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Variable type</th>
+<th>Aggregation</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Amounts (sales, visits, rainfall)</td>
+<td><code>sum</code> for totals, <code>mean</code> for typical level</td>
+<td>weekly total sales</td>
+</tr>
+<tr>
+<td>Levels or intensities (temperature, price)</td>
+<td><code>mean</code> (or last value for prices)</td>
+<td>monthly average temperature</td>
+</tr>
+<tr>
+<td>Extremes</td>
+<td><code>max</code> or <code>min</code></td>
+<td>daily peak demand</td>
+</tr>
+</tbody>
+</table></div><pre data-lang="python"><code class="language-python">weekly_total = df["sales"].resample("W").sum()
+monthly_mean = df["sales"].resample("MS").mean()
+</code></pre><p><strong>Pitfall:</strong> the first and last periods may be incomplete (a partial week or month). Count the observations per period and drop incomplete ones.</p><h2>1.4 Shifts, differences and rolling windows</h2><pre data-lang="python"><code class="language-python">df["sales"].shift(7)                    # value 7 rows earlier (a lag)
+df["sales"].diff()                      # y(t) - y(t-1)
+df["sales"].diff(7)                     # y(t) - y(t-7): seasonal difference
+df["sales"].pct_change()                # percentage change
+df["sales"].rolling(window=7).mean()    # 7-day moving average
+df["sales"].rolling(window=30).std()    # rolling variability
+df["sales"].expanding().mean()          # mean of everything up to now
+</code></pre><p>A <strong>rolling mean</strong> smooths noise. A window equal to the seasonal period (7 for weekly data) averages out the seasonal pattern, leaving the level.</p><h2>1.5 Missing values</h2><p>Do <strong>not</strong> fill blindly. Ask why the value is missing.</p><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Reasonable action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Isolated gap in a smooth series</td>
+<td>time interpolation (<code>interpolate(method="time")</code>)</td>
+</tr>
+<tr>
+<td>Gap in a strongly seasonal series</td>
+<td>interpolate using the same season, or a seasonal method</td>
+</tr>
+<tr>
+<td>Long gap</td>
+<td>do not invent data; split the series or model the gap</td>
+</tr>
+<tr>
+<td>Measurement error (impossible value)</td>
+<td>set to missing first, then decide</td>
+</tr>
+<tr>
+<td>Missing means zero (no sales)</td>
+<td>fill with 0</td>
+</tr>
+</tbody>
+</table></div><p>Never use <code>bfill</code> (backward fill) on data you will forecast with, because it uses <em>future</em> values to fill the past.</p><h2>1.6 Real-world cleaning checklist</h2><ul>
+<li>Numbers stored as text with commas (<code>"2,146"</code>): remove commas, convert with <code>pd.to_numeric</code>.</li>
+<li>Dates in an ambiguous format (<code>03/04/2024</code>): set <code>dayfirst</code> explicitly.</li>
+<li>Duplicate dates, unsorted rows.</li>
+<li>Impossible values (negative counts, pressure of 7,000 hPa): flag them.</li>
+<li><strong>Two files that overlap in time:</strong> check shared dates and decide which version to keep. One suspicious row at the end of a training set can distort every model that depends on recent values.</li>
+</ul><div class="callout practice"><h3>Practice task (Module 1)</h3><p>Download any daily dataset. Convert the date, sort, check for missing days, resample to weekly, and plot the daily series with its 7-day and 30-day rolling means.</p></div><div class="callout check"><h3>Check yourself (Module 1)</h3><ol>
+<li>What does <code>asfreq("D")</code> do when days are missing?</li>
+<li>When resampling visitor counts to weekly values, which aggregation gives a weekly <em>total</em>?</li>
+<li>Why is <code>bfill</code> dangerous for forecasting data?</li>
+<li>What is the difference between <code>shift(7)</code> and <code>diff(7)</code>?</li>
+</ol></div><div class="pn"><a href="#s0">← Module 0</a><a href="#s2">Module 2 →</a></div></section><section class="module" id="s2" style="--hue:#f59e0b"><div class="module-head"><span class="icon">🧩</span><h1>Module 2: Trend, Seasonality, Noise and Decomposition</h1></div><h2>2.1 The components</h2><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Meaning</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Trend</strong></td>
+<td>long-term upward or downward movement</td>
+<td>traffic growing over several years</td>
+</tr>
+<tr>
+<td><strong>Seasonality</strong></td>
+<td>a pattern that repeats at a <strong>fixed, known period</strong></td>
+<td>lower traffic every weekend; hot every summer</td>
+</tr>
+<tr>
+<td><strong>Cycle</strong></td>
+<td>rises and falls with <strong>no fixed period</strong></td>
+<td>economic booms and recessions</td>
+</tr>
+<tr>
+<td><strong>Noise (residual)</strong></td>
+<td>irregular, unexplained variation</td>
+<td>random day-to-day variation</td>
+</tr>
+</tbody>
+</table></div><p><strong>Seasonality vs cycle:</strong> seasonality has a known, constant period (7 days, 12 months). Cycles have varying length. This difference matters because seasonal models need a known period.</p><p>A series can have <strong>several seasonalities</strong> at once, for example weekly <em>and</em> yearly in daily data.</p><h2>2.2 Additive vs multiplicative</h2><ul>
+<li><strong>Additive:</strong> <code>y = trend + seasonal + noise</code>. The seasonal swing has a <strong>constant size</strong> (always ±8 °C).</li>
+<li><strong>Multiplicative:</strong> <code>y = trend × seasonal × noise</code>. The swing <strong>grows with the level</strong> (a busy period has bigger weekly swings).</li>
+</ul><p>How to tell: if the seasonal swings get larger as the level rises, the series is multiplicative. A <strong>log transform</strong> turns a multiplicative series into an additive one:</p><p><code>log(trend × seasonal × noise) = log(trend) + log(seasonal) + log(noise)</code></p><p>A quick check: plot rolling standard deviation against rolling mean. A strong positive relationship suggests a multiplicative pattern.</p><h2>2.3 Decomposition</h2><p>Decomposition splits a series into trend, seasonal and residual parts.</p><pre data-lang="python"><code class="language-python">from statsmodels.tsa.seasonal import seasonal_decompose, STL
+
+# Classical decomposition (needs the period)
+result = seasonal_decompose(y, model="additive", period=7)
+result.plot()
+
+# STL: more flexible, robust to outliers, seasonal shape can change slowly
+stl_result = STL(y, period=7, robust=True).fit()
+stl_result.plot()
+</code></pre><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Strengths</th>
+<th>Weaknesses</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Classical</strong></td>
+<td>simple, fast</td>
+<td>trend missing at both ends; seasonal shape fixed; not robust to outliers</td>
+</tr>
+<tr>
+<td><strong>STL</strong></td>
+<td>handles changing seasonality, robust option, any period</td>
+<td>additive only (use log for multiplicative)</td>
+</tr>
+</tbody>
+</table></div><p><strong>Rule for the period:</strong> daily data with weekly pattern → 7; monthly data with yearly pattern → 12; hourly data with daily pattern → 24. For a long period such as 365 in daily data, decompose the <strong>weekly or monthly averages</strong> instead (period 52 or 12), where the pattern is clearer.</p><h2>2.4 Strength of seasonality and trend</h2><p>A useful summary (Hyndman and Athanasopoulos):</p><pre data-lang="python"><code class="language-python">def strength(decomposition):
+    resid = decomposition.resid.dropna()
+    seasonal = decomposition.seasonal.loc[resid.index]
+    trend = decomposition.trend.loc[resid.index]
+    seasonal_strength = max(0, 1 - resid.var() / (resid + seasonal).var())
+    trend_strength = max(0, 1 - resid.var() / (resid + trend).var())
+    return seasonal_strength, trend_strength
+</code></pre><p>Values run from 0 (none) to 1 (very strong). A seasonal strength above about 0.64 is a commonly used threshold for applying seasonal differencing.</p><h2>2.5 Why this matters</h2><p>Decomposition tells you <strong>how much</strong> of the variation is predictable (trend and seasonality) versus unpredictable (noise). If most variation is seasonal, a seasonal model is essential. If noise dominates, even the best model has limited accuracy.</p><div class="callout practice"><h3>Practice task (Module 2)</h3><p>Decompose a daily series with <code>period=7</code> and the weekly means with <code>period=52</code>. Compute both strengths and write one paragraph describing the pattern.</p></div><div class="callout check"><h3>Check yourself (Module 2)</h3><ol>
+<li>What is the difference between seasonality and a cycle?</li>
+<li>When would you use a log transform before decomposition?</li>
+<li>Why is the trend missing at the ends in classical decomposition?</li>
+<li>What seasonal period would you use for monthly data with a yearly pattern?</li>
+</ol></div><div class="pn"><a href="#s1">← Module 1</a><a href="#s3">Module 3 →</a></div></section><section class="module" id="s3" style="--hue:#10b981"><div class="module-head"><span class="icon">📈</span><h1>Module 3: Exploring a Series Visually</h1></div><p>Plots are the main tool for understanding a series. Make them before running any test or model.</p><h2>3.1 The essential plots</h2><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Plot</th>
+<th>Shows</th>
+<th>What to look for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Line plot</strong></td>
+<td>the whole series</td>
+<td>trend, level shifts, spikes, gaps, season</td>
+</tr>
+<tr>
+<td><strong>Rolling mean</strong></td>
+<td>smoothed level</td>
+<td>trend; use a window equal to the season to remove it</td>
+</tr>
+<tr>
+<td><strong>Rolling std</strong></td>
+<td>changing variability</td>
+<td>variance growing with level</td>
+</tr>
+<tr>
+<td><strong>Histogram / KDE</strong></td>
+<td>distribution</td>
+<td>skew, several humps (regimes)</td>
+</tr>
+<tr>
+<td><strong>Box plot by calendar part</strong></td>
+<td>seasonal pattern</td>
+<td>differences between weekdays or months</td>
+</tr>
+<tr>
+<td><strong>Seasonal plot</strong></td>
+<td>each year/week overlaid</td>
+<td>how the seasonal shape changes</td>
+</tr>
+<tr>
+<td><strong>Heatmap (weekday × month)</strong></td>
+<td>two calendar effects together</td>
+<td>whether the weekly pattern changes during the year</td>
+</tr>
+<tr>
+<td><strong>Lag plot</strong></td>
+<td><code>y(t)</code> vs <code>y(t-k)</code></td>
+<td>autocorrelation at lag <em>k</em></td>
+</tr>
+</tbody>
+</table></div><pre data-lang="python"><code class="language-python">import matplotlib.pyplot as plt
+import seaborn as sns
+
+fig, ax = plt.subplots(figsize=(12, 5))
+ax.plot(y, color="lightgrey", label="Daily")
+ax.plot(y.rolling(7).mean(), label="7-day mean")
+ax.plot(y.rolling(30).mean(), label="30-day mean")
+ax.set_title("Daily visitors with rolling means")
+ax.set_xlabel("Date"); ax.set_ylabel("Visitors")
+ax.legend()
+plt.tight_layout()
+plt.show()
+</code></pre><h2>3.2 Calendar patterns</h2><pre data-lang="python"><code class="language-python">calendar = pd.DataFrame({"y": y})
+calendar["weekday"] = y.index.day_name()
+calendar["month"] = y.index.month
+sns.boxplot(data=calendar, x="weekday", y="y")
+</code></pre><p>Only analyse patterns that <strong>make sense</strong> for your data. Temperature has no weekday effect; website traffic does. Test an assumption quickly (compare weekday and weekend means) rather than assuming.</p><h2>3.3 Plot design rules</h2><ul>
+<li>Label axes with units and give every plot a title.</li>
+<li>Use consistent figure sizes.</li>
+<li>Do not hide gaps; show them.</li>
+<li>When comparing years, use only <strong>complete</strong> years.</li>
+</ul><h2>3.4 Reading a line plot: a checklist</h2><ol>
+<li>Is there a trend? Up, down, or changing?</li>
+<li>Is there a repeating pattern? At what period?</li>
+<li>Does the pattern's size change with the level?</li>
+<li>Are there level shifts (the series jumps to a new range and stays)?</li>
+<li>Are there outliers or gaps? Are they errors or real events?</li>
+<li>Does the variability change over time?</li>
+</ol><div class="callout practice"><h3>Practice task (Module 3)</h3><p>For one dataset, make the six plots above and answer the six checklist questions in writing.</p></div><div class="callout check"><h3>Check yourself (Module 3)</h3><ol>
+<li>What does a rolling mean with a window equal to the seasonal period do?</li>
+<li>Why use only complete years when comparing yearly averages?</li>
+<li>What would a heatmap of weekday × month reveal that a weekday box plot cannot?</li>
+</ol></div><div class="pn"><a href="#s2">← Module 2</a><a href="#s4">Module 4 →</a></div></section><section class="module" id="s4" style="--hue:#06b6d4"><div class="module-head"><span class="icon">⚖️</span><h1>Module 4: Stationarity and Differencing</h1></div><h2>4.1 Why stationarity?</h2><p>A series is <strong>weakly stationary</strong> if:</p><ul>
+<li>its <strong>mean</strong> is constant over time,</li>
+<li>its <strong>variance</strong> is constant over time,</li>
+<li>its <strong>autocorrelation</strong> depends only on the lag between points, not on when they occur.</li>
+</ul><p>Trend breaks the first condition. Seasonality breaks it too (the mean depends on the season). Models in the ARIMA family are built for stationary data (after differencing), because they assume the relationships learned from the past still hold in the future.</p><h2>4.2 Two special series</h2><ul>
+<li><strong>White noise:</strong> independent values with constant mean and variance. It is stationary and <strong>unpredictable</strong>: the best forecast is its mean. If your model residuals are white noise, the model has captured the predictable structure.</li>
+<li><strong>Random walk:</strong> <code>y(t) = y(t-1) + noise</code>. It is <strong>non-stationary</strong>. Its best forecast is the last value (the naive forecast). Its differences, <code>y(t) - y(t-1)</code>, are white noise.</li>
+</ul><p>Many financial and level-like series behave like random walks, which is why the naive forecast is hard to beat for them.</p><h2>4.3 Tests for stationarity</h2><h3>ADF (Augmented Dickey-Fuller)</h3><ul>
+<li><strong>H0:</strong> the series has a <strong>unit root</strong> (non-stationary).</li>
+<li><strong>H1:</strong> the series is stationary.</li>
+<li><code>p &lt; 0.05</code> → reject H0 → evidence of stationarity.</li>
+</ul><h3>KPSS</h3><ul>
+<li><strong>H0:</strong> the series is <strong>stationary</strong> (opposite of ADF).</li>
+<li><code>p &lt; 0.05</code> → reject H0 → evidence of non-stationarity.</li>
+</ul><pre data-lang="python"><code class="language-python">from statsmodels.tsa.stattools import adfuller, kpss
+
+adf_p = adfuller(y.dropna(), autolag="AIC")[1]
+kpss_p = kpss(y.dropna(), regression="c", nlags="auto")[1]
+</code></pre><p>Use both together:</p><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>ADF</th>
+<th>KPSS</th>
+<th>Conclusion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rejects H0</td>
+<td>does not reject</td>
+<td>stationary</td>
+</tr>
+<tr>
+<td>does not reject</td>
+<td>rejects H0</td>
+<td>non-stationary → difference</td>
+</tr>
+<tr>
+<td>rejects</td>
+<td>rejects</td>
+<td>trend-stationary or conflicting; investigate, use plots</td>
+</tr>
+<tr>
+<td>does not reject</td>
+<td>does not reject</td>
+<td>inconclusive; low power or short data</td>
+</tr>
+</tbody>
+</table></div><p><strong>Caution:</strong> ADF detects a <em>stochastic</em> trend (unit root). It is weak against strong deterministic seasonality. A strongly seasonal series can pass the ADF test and still not be stationary. Always combine the test with plots and seasonal-strength measures.</p><h2>4.4 Making a series stationary</h2><h3>Transformations (for changing variance)</h3><ul>
+<li><strong>Log:</strong> turns multiplicative patterns into additive ones. For counts with zeros use <code>log1p</code>.</li>
+<li><strong>Box-Cox:</strong> a family of power transforms; λ = 0 equals the log.</li>
+</ul><pre data-lang="python"><code class="language-python">import numpy as np
+y_log = np.log1p(y)        # forecast on this scale, then back-transform with np.expm1
+</code></pre><p>A forecast back-transformed from log scale is approximately the <strong>median</strong>, not the mean, so it can be slightly low.</p><h3>Differencing (for changing mean)</h3><ul>
+<li><strong>First difference:</strong> <code>y(t) − y(t−1)</code> removes a trend or unit root.</li>
+<li><strong>Seasonal difference:</strong> <code>y(t) − y(t−m)</code> removes a seasonal pattern with period <em>m</em> (7 for weekly).</li>
+<li>Applying both: <code>y.diff(m).diff()</code>.</li>
+</ul><pre data-lang="python"><code class="language-python">y_diff = y.diff().dropna()
+y_seasonal_diff = y.diff(7).dropna()
+y_both = y.diff(7).diff().dropna()
+</code></pre><h3>How much differencing?</h3><ul>
+<li>Use as <strong>little</strong> as possible. Typically <code>d</code> is 0 or 1; <code>d = 2</code> is rare.</li>
+<li><strong>Over-differencing</strong> introduces artificial negative autocorrelation and makes forecasts noisier. Signs: the differenced series has a very strong negative spike at lag 1 in the ACF, and its variance is <em>larger</em> than before.</li>
+<li>Choose by documented rules (for example: seasonal difference if seasonal strength &gt; 0.64; first difference if ADF fails) <strong>before</strong> looking at model scores.</li>
+</ul><h2>4.5 Interpreting differenced forecasts</h2><p>An ARIMA model with <code>d = 1</code> forecasts the differences and then adds them back up. Without a constant, a long-horizon forecast becomes nearly flat at the last level; this is why a non-seasonal ARIMA can do badly over many steps on a seasonal series.</p><div class="callout practice"><h3>Practice task (Module 4)</h3><p>Run ADF and KPSS on a trending series, its first difference and its seasonal difference. Fill in the conclusion table for each.</p></div><div class="callout check"><h3>Check yourself (Module 4)</h3><ol>
+<li>What is the null hypothesis of the ADF test? Of KPSS?</li>
+<li>Why can a seasonal series pass the ADF test but still not be stationary?</li>
+<li>What is the best forecast for a random walk?</li>
+<li>Name two signs of over-differencing.</li>
+</ol></div><div class="pn"><a href="#s3">← Module 3</a><a href="#s5">Module 5 →</a></div></section><section class="module" id="s5" style="--hue:#8b5cf6"><div class="module-head"><span class="icon">🔁</span><h1>Module 5: Autocorrelation: ACF and PACF</h1></div><h2>5.1 Ideas</h2><ul>
+<li><strong>Lag:</strong> a time shift. Lag 1 compares each value with the previous one.</li>
+<li><strong>Autocorrelation (ACF) at lag k:</strong> the correlation between <code>y(t)</code> and <code>y(t−k)</code>, including indirect effects through the lags in between.</li>
+<li><strong>Partial autocorrelation (PACF) at lag k:</strong> the correlation between <code>y(t)</code> and <code>y(t−k)</code> after <strong>removing</strong> the effect of lags 1 to k−1. It isolates the <em>direct</em> link.</li>
+</ul><pre data-lang="python"><code class="language-python">from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
+
+fig, axes = plt.subplots(1, 2, figsize=(12, 4))
+plot_acf(y_stationary, lags=40, ax=axes[0], zero=False)
+plot_pacf(y_stationary, lags=40, ax=axes[1], zero=False, method="ywm")
+plt.tight_layout(); plt.show()
+</code></pre><p>The shaded band is an approximate 95% confidence limit: spikes outside it are statistically meaningful. About 1 in 20 spikes will cross the band by chance.</p><h2>5.2 Reading patterns</h2><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>What it suggests</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ACF decays very slowly</td>
+<td>non-stationary: difference</td>
+</tr>
+<tr>
+<td>ACF with repeating spikes at lag <em>m</em>, 2<em>m</em>, 3<em>m</em></td>
+<td>seasonality with period <em>m</em></td>
+</tr>
+<tr>
+<td>Stationary series: PACF cuts off after lag <em>p</em>, ACF decays gradually</td>
+<td>AR(<em>p</em>)</td>
+</tr>
+<tr>
+<td>Stationary series: ACF cuts off after lag <em>q</em>, PACF decays gradually</td>
+<td>MA(<em>q</em>)</td>
+</tr>
+<tr>
+<td>Both decay gradually</td>
+<td>ARMA (mixed)</td>
+</tr>
+<tr>
+<td>Strong negative spike at lag 1 after differencing</td>
+<td>possible over-differencing, or an MA(1) term</td>
+</tr>
+<tr>
+<td>Spike at lag <em>m</em> only (ACF)</td>
+<td>seasonal MA term</td>
+</tr>
+<tr>
+<td>Spike at lag <em>m</em> only (PACF)</td>
+<td>seasonal AR term</td>
+</tr>
+</tbody>
+</table></div><p>Treat these as <strong>guides</strong>, not rules. Real data is messy. Use them to choose a <em>small set</em> of candidate models, then compare them with AIC and out-of-sample error.</p><h2>5.3 Testing whether a series (or residual) is white noise</h2><p>The <strong>Ljung-Box test</strong>:</p><ul>
+<li><strong>H0:</strong> no autocorrelation up to the chosen lag.</li>
+<li>A small p-value means there is leftover structure.</li>
+</ul><pre data-lang="python"><code class="language-python">from statsmodels.stats.diagnostic import acorr_ljungbox
+acorr_ljungbox(residuals, lags=[7, 14, 21])
+</code></pre><p>For seasonal data, check lags that are multiples of the period.</p><div class="callout practice"><h3>Practice task (Module 5)</h3><p>Plot the ACF and PACF of a daily series with weekly seasonality, before and after <code>diff(7)</code>. Describe how the pattern changes.</p></div><div class="callout check"><h3>Check yourself (Module 5)</h3><ol>
+<li>What is the difference between ACF and PACF?</li>
+<li>What does an ACF spike at lags 7, 14 and 21 mean for daily data?</li>
+<li>What does a small Ljung-Box p-value tell you about residuals?</li>
+</ol></div><div class="pn"><a href="#s4">← Module 4</a><a href="#s6">Module 6 →</a></div></section><section class="module" id="s6" style="--hue:#ef4444"><div class="module-head"><span class="icon">✂️</span><h1>Module 6: Splitting, Baselines, Metrics and Validation</h1></div><h2>6.1 The chronological split</h2><pre data-lang="python"><code class="language-python">test_size = 90
+train = y.iloc[:-test_size]
+test = y.iloc[-test_size:]
+</code></pre><p><strong>Never shuffle.</strong> A random split lets the model train on the future and be tested on the past, giving unrealistically good scores. This is <strong>data leakage</strong>.</p><p>Common leakage sources in time series:</p><ul>
+<li>random splitting or ordinary k-fold cross-validation,</li>
+<li>fitting a scaler or imputer on the full series,</li>
+<li>using <code>bfill</code>, centred rolling windows or interpolation that crosses the split,</li>
+<li>choosing a transformation or order after looking at the test results,</li>
+<li>features that use future information (for example a centred moving average).</li>
+</ul><p>Do all exploration and parameter selection on the <strong>training data only</strong>.</p><h2>6.2 Baselines</h2><p>A baseline tells you how hard the problem is. A complex model is only worthwhile if it beats them.</p><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Rule</th>
+<th>Good for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Mean</strong></td>
+<td>average of the training data</td>
+<td>stable series</td>
+</tr>
+<tr>
+<td><strong>Naive</strong></td>
+<td>last observed value</td>
+<td>random-walk-like series</td>
+</tr>
+<tr>
+<td><strong>Seasonal naive</strong></td>
+<td>value from one season earlier</td>
+<td>strong, stable seasonality</td>
+</tr>
+<tr>
+<td><strong>Drift</strong></td>
+<td>line from first to last observation</td>
+<td>steady trend</td>
+</tr>
+<tr>
+<td><strong>Seasonal mean</strong></td>
+<td>average of the same position in several recent seasons</td>
+<td>noisy seasonality</td>
+</tr>
+</tbody>
+</table></div><h2>6.3 Error metrics</h2><p>Let <code>e(t) = actual − forecast</code>.</p><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Formula idea</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MAE</strong></td>
+<td>mean of `</td>
+<td>e</td>
+</tr>
+<tr>
+<td><strong>RMSE</strong></td>
+<td>square root of mean of <code>e²</code></td>
+<td>punishes large errors; always ≥ MAE</td>
+</tr>
+<tr>
+<td><strong>MAPE</strong></td>
+<td>mean of `</td>
+<td>e</td>
+</tr>
+<tr>
+<td><strong>sMAPE</strong></td>
+<td>symmetric version</td>
+<td>still unstable near 0; debated</td>
+</tr>
+<tr>
+<td><strong>Bias (ME)</strong></td>
+<td>mean of <code>e</code></td>
+<td>positive = under-forecasting on average</td>
+</tr>
+<tr>
+<td><strong>MASE</strong></td>
+<td>MAE ÷ MAE of the in-sample naive forecast</td>
+<td><strong>scale-free</strong>; &lt; 1 means better than naive; good for comparing series</td>
+</tr>
+</tbody>
+</table></div><pre data-lang="python"><code class="language-python">import numpy as np
+
+def mase(actual, forecast, train, m=1):
+    """Mean absolute scaled error; m = seasonal period (1 for non-seasonal naive)."""
+    train = np.asarray(train, dtype=float)
+    scale = np.mean(np.abs(train[m:] - train[:-m]))
+    return np.mean(np.abs(np.asarray(actual) - np.asarray(forecast))) / scale
+</code></pre><p><strong>Choosing a metric:</strong> use MAE if you want a typical error; RMSE if large misses are costly; MASE to compare across series of different scales; avoid MAPE for data with zeros or for temperature in Celsius.</p><h2>6.4 Multi-step forecasts</h2><ul>
+<li><strong>One-shot (multi-step) forecast:</strong> forecast the whole test window at once from one origin. Tests long-range ability.</li>
+<li><strong>One-step-ahead forecast:</strong> refit or update after each new observation.</li>
+<li>Report the <strong>horizon</strong> with every error number. "RMSE 240" means nothing without "at 14 days ahead".</li>
+</ul><h2>6.5 Rolling-origin evaluation (time-series cross-validation)</h2><p>One test window can be lucky or unlucky. A <strong>rolling-origin</strong> evaluation moves the forecast origin forward and repeats:</p><pre data-lang="text"><code class="language-text">origin 1:  train [............]  forecast [h days]
+origin 2:  train [..............]  forecast [h days]
+origin 3:  train [................]  forecast [h days]
+</code></pre><pre data-lang="python"><code class="language-python">def rolling_origin(y, forecaster, test_start, horizon, step):
+    errors = []
+    for start in range(test_start, len(y) - horizon + 1, step):
+        history = y.iloc[:start]                 # only the past
+        actual = y.iloc[start:start + horizon]
+        forecast = forecaster(history, actual.index)
+        errors.append(actual - forecast)
+    return pd.concat(errors)
+</code></pre><p>Scikit-learn's <code>TimeSeriesSplit</code> does this for ML models with an expanding window:</p><pre data-lang="python"><code class="language-python">from sklearn.model_selection import TimeSeriesSplit
+tscv = TimeSeriesSplit(n_splits=5, test_size=14)
+for train_idx, test_idx in tscv.split(X):
+    ...
+</code></pre><p>Rolling-origin results are more reliable than a single hold-out because they average over several forecast windows.</p><h2>6.6 Residual diagnostics</h2><p>For a good model, residuals should be:</p><ol>
+<li><strong>Mean zero</strong> (no bias),</li>
+<li><strong>No autocorrelation</strong> (Ljung-Box, ACF plot),</li>
+<li><strong>Constant variance</strong> over time,</li>
+<li><strong>Roughly normal</strong> (needed mainly for prediction intervals).</li>
+</ol><p>If residuals still show structure, the model is missing information.</p><div class="callout practice"><h3>Practice task (Module 6)</h3><p>Split a series (last 60 days as test). Compute naive, seasonal naive and seasonal mean forecasts. Compare MAE, RMSE and MASE. Which baseline wins and why?</p></div><div class="callout check"><h3>Check yourself (Module 6)</h3><ol>
+<li>Name three sources of data leakage in time series.</li>
+<li>What does MASE &lt; 1 mean?</li>
+<li>Why is a rolling-origin evaluation more reliable than one test window?</li>
+<li>Why must you state the horizon when reporting an error?</li>
+</ol></div><div class="pn"><a href="#s5">← Module 5</a><a href="#s7">Module 7 →</a></div></section><section class="module" id="s7" style="--hue:#14b8a6"><div class="module-head"><span class="icon">🪜</span><h1>Module 7: Simple Forecasting Methods</h1></div><p>These are not "toy" methods. On many real series they are hard to beat, and they are always the first thing to try.</p><h2>7.1 The methods</h2><pre data-lang="python"><code class="language-python">import numpy as np
+import pandas as pd
+
+def naive(history, index):
+    return pd.Series(history.iloc[-1], index=index)
+
+def moving_average(history, index, window=7):
+    return pd.Series(history.iloc[-window:].mean(), index=index)
+
+def seasonal_naive(history, index, period=7):
+    # most recent observed value for the same position in the season
+    last = history.index[-1]
+    cycles = np.ceil((index - last).days / period).astype(int)
+    lookup = index - pd.to_timedelta(cycles * period, unit="D")
+    return pd.Series(history.reindex(lookup).to_numpy(), index=index)
+
+def drift(history, index):
+    slope = (history.iloc[-1] - history.iloc[0]) / (len(history) - 1)
+    steps = np.arange(1, len(index) + 1)
+    return pd.Series(history.iloc[-1] + slope * steps, index=index)
+</code></pre><h2>7.2 What each assumes</h2><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Assumes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mean</td>
+<td>no trend, no season; the long-run average is the best guess</td>
+</tr>
+<tr>
+<td>Naive</td>
+<td>the latest value is the best guess (random walk)</td>
+</tr>
+<tr>
+<td>Moving average</td>
+<td>the recent level is the best guess; noise is averaged out</td>
+</tr>
+<tr>
+<td>Seasonal naive</td>
+<td>the seasonal pattern repeats exactly</td>
+</tr>
+<tr>
+<td>Seasonal mean</td>
+<td>the seasonal pattern repeats; noise is averaged out across seasons</td>
+</tr>
+<tr>
+<td>Drift</td>
+<td>steady linear change</td>
+</tr>
+</tbody>
+</table></div><h2>7.3 Lessons</h2><ul>
+<li>A seasonal series makes non-seasonal baselines look poor. Use the <strong>seasonal</strong> versions.</li>
+<li>A flat forecast (naive, moving average) cannot follow a seasonal swing over many steps.</li>
+<li>If a complicated model barely beats seasonal naive, the added complexity may not be worth it.</li>
+</ul><div class="callout practice"><h3>Practice task (Module 7)</h3><p>Implement the five methods and compare them on the test window of your series.</p></div><div class="callout check"><h3>Check yourself (Module 7)</h3><ol>
+<li>Which baseline suits a strongly weekly series?</li>
+<li>Why does a naive forecast become a flat line over many steps?</li>
+</ol></div><div class="pn"><a href="#s6">← Module 6</a><a href="#s8">Module 8 →</a></div></section><section class="module" id="s8" style="--hue:#6366f1"><div class="module-head"><span class="icon">🌊</span><h1>Module 8: Exponential Smoothing</h1></div><h2>8.1 The idea</h2><p>Exponential smoothing forecasts using a <strong>weighted average of past values</strong> where <strong>recent observations get more weight</strong>, and weights decay exponentially into the past. It adapts to changing levels.</p><h2>8.2 Simple exponential smoothing (SES)</h2><p><code>level(t) = α · y(t) + (1 − α) · level(t−1)</code>, with <code>0 &lt; α &lt; 1</code>.</p><ul>
+<li>α near 1: the level follows the data closely (fast adaptation, noisy).</li>
+<li>α near 0: the level changes slowly (smooth, slow to adapt).</li>
+<li>Forecast: a <strong>flat line</strong> at the latest level. Use for data without trend or seasonality.</li>
+</ul><h2>8.3 Holt's linear method</h2><p>Adds a <strong>trend</strong> component with its own smoothing parameter β. Forecasts continue the trend line.</p><p><strong>Damped trend:</strong> the trend flattens out over the horizon. Damped trend forecasts are often more accurate than undamped ones because trends rarely continue forever.</p><h2>8.4 Holt-Winters (seasonal)</h2><p>Adds a <strong>seasonal</strong> component with parameter γ. Two versions:</p><ul>
+<li><strong>Additive</strong> seasonality: constant seasonal swing.</li>
+<li><strong>Multiplicative</strong> seasonality: swing proportional to the level.</li>
+</ul><pre data-lang="python"><code class="language-python">from statsmodels.tsa.holtwinters import ExponentialSmoothing
+
+model = ExponentialSmoothing(
+    train,
+    trend="add",
+    damped_trend=True,
+    seasonal="add",              # or "mul" for positive data with growing swings
+    seasonal_periods=7,
+    initialization_method="estimated",
+)
+fitted = model.fit()
+forecast = fitted.forecast(len(test))
+</code></pre><h2>8.5 The ETS framework</h2><p>ETS names a model by its <strong>E</strong>rror, <strong>T</strong>rend and <strong>S</strong>easonal types: <code>ETS(error, trend, seasonal)</code> with options A (additive), M (multiplicative), N (none). Example: <code>ETS(A, Ad, A)</code> = additive error, damped additive trend, additive seasonality. Statsmodels provides <code>ETSModel</code>, which also gives prediction intervals and AIC for model comparison.</p><h2>8.6 Strengths and limits</h2><ul>
+<li>Strengths: simple, fast, robust, good for short series, adapts to level changes.</li>
+<li>Limits: a seasonal period such as 365 in daily data is not practical; no external variables; one seasonality only.</li>
+</ul><div class="callout practice"><h3>Practice task (Module 8)</h3><p>Fit SES, Holt (damped) and Holt-Winters on a monthly series. Plot their forecasts and compare test errors.</p></div><div class="callout check"><h3>Check yourself (Module 8)</h3><ol>
+<li>What happens as α approaches 1?</li>
+<li>Why is a damped trend often safer than an undamped one?</li>
+<li>When would you choose multiplicative seasonality?</li>
+</ol></div><div class="pn"><a href="#s7">← Module 7</a><a href="#s9">Module 9 →</a></div></section><section class="module" id="s9" style="--hue:#ec4899"><div class="module-head"><span class="icon">🧮</span><h1>Module 9: ARIMA</h1></div><h2>9.1 The building blocks</h2><ul>
+<li><strong>AR(p) — AutoRegressive:</strong> <code>y(t)</code> depends on its own last <em>p</em> values.
+<code>y(t) = c + φ1·y(t−1) + … + φp·y(t−p) + e(t)</code></li>
+<li><strong>MA(q) — Moving Average:</strong> <code>y(t)</code> depends on the last <em>q</em> <strong>forecast errors</strong>.
+<code>y(t) = c + e(t) + θ1·e(t−1) + … + θq·e(t−q)</code></li>
+<li><strong>I(d) — Integrated:</strong> difference the series <em>d</em> times to make it stationary.</li>
+</ul><p><strong>ARIMA(p, d, q)</strong> = difference <em>d</em> times, then fit an ARMA(p, q) model.</p><h2>9.2 Reading the notation</h2><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ARIMA(0,0,0)</td>
+<td>white noise</td>
+</tr>
+<tr>
+<td>ARIMA(0,1,0)</td>
+<td>random walk</td>
+</tr>
+<tr>
+<td>ARIMA(1,0,0)</td>
+<td>first-order autoregression</td>
+</tr>
+<tr>
+<td>ARIMA(0,1,1)</td>
+<td>simple exponential smoothing (equivalent)</td>
+</tr>
+<tr>
+<td>ARIMA(1,1,1)</td>
+<td>difference once, one AR term, one MA term</td>
+</tr>
+</tbody>
+</table></div><p>A <strong>constant</strong> in a model with <code>d = 0</code> sets the mean; with <code>d = 1</code> it creates a drift. Statsmodels' <code>ARIMA</code> includes a constant by default only when <code>d = 0</code>.</p><h2>9.3 Choosing the orders</h2><ol>
+<li><strong>Choose <code>d</code></strong> with plots and stationarity tests (Module 4).</li>
+<li><strong>Look at ACF/PACF</strong> of the differenced series (Module 5) for candidate <code>p</code> and <code>q</code>.</li>
+<li><strong>Compare a small grid</strong> with <strong>AIC</strong> (or AICc/BIC): lower is better. AIC rewards fit and penalises the number of parameters.</li>
+<li><strong>Check residuals</strong> of the best candidates.</li>
+<li><strong>Compare out of sample</strong> against baselines.</li>
+</ol><p>AIC is only comparable between models fitted to the <strong>same data with the same <code>d</code></strong>.</p><p>Avoid searching hundreds of combinations: a larger search finds patterns that exist only in your training data (overfitting), and is hard to explain.</p><pre data-lang="python"><code class="language-python">from statsmodels.tsa.statespace.sarimax import SARIMAX
+
+def rank_by_aic(y, d, max_p=2, max_q=2):
+    rows = []
+    for p in range(max_p + 1):
+        for q in range(max_q + 1):
+            trend = "c" if d == 0 else "n"
+            fitted = SARIMAX(y, order=(p, d, q), trend=trend).fit(disp=False)
+            rows.append({"order": (p, d, q), "AIC": fitted.aic})
+    return pd.DataFrame(rows).sort_values("AIC").reset_index(drop=True)
+</code></pre><h2>9.4 Fitting and forecasting</h2><pre data-lang="python"><code class="language-python">from statsmodels.tsa.arima.model import ARIMA
+
+fitted = ARIMA(train, order=(1, 1, 1)).fit()
+print(fitted.summary())
+
+prediction = fitted.get_forecast(steps=len(test))
+forecast = prediction.predicted_mean
+interval = prediction.conf_int(alpha=0.05)     # 95% prediction interval
+</code></pre><h2>9.5 Behaviour of ARIMA forecasts</h2><ul>
+<li>With <strong>no seasonal terms</strong>, a long-horizon forecast converges to a constant (for <code>d = 0</code>) or to a line / flat level (for <code>d = 1</code>). It cannot reproduce a repeating pattern.</li>
+<li><strong>Prediction intervals widen</strong> as the horizon grows. For <code>d = 1</code> they widen without bound.</li>
+<li>Short-horizon forecasts use recent values; long-horizon forecasts fall back to the mean or last level.</li>
+</ul><h2>9.6 Strengths and limits</h2><ul>
+<li>Strengths: a flexible, well-understood family; gives prediction intervals; handles short-term dependence.</li>
+<li>Limits: needs stationarity (after differencing); no built-in seasonality (see Module 10); linear.</li>
+</ul><div class="callout practice"><h3>Practice task (Module 9)</h3><p>On a non-seasonal series (for example yearly or detrended data), choose <code>d</code>, run an AIC search over <code>p, q ≤ 2</code>, check residuals with Ljung-Box, and compare with the naive forecast.</p></div><div class="callout check"><h3>Check yourself (Module 9)</h3><ol>
+<li>What does the <code>d</code> in ARIMA(p,d,q) represent?</li>
+<li>Why can't you compare AIC between a <code>d = 0</code> and a <code>d = 1</code> model?</li>
+<li>What does an ARIMA forecast look like many steps ahead on a strongly seasonal series?</li>
+<li>Why avoid searching hundreds of orders?</li>
+</ol></div><div class="pn"><a href="#s8">← Module 8</a><a href="#s10">Module 10 →</a></div></section><section class="module" id="s10" style="--hue:#f59e0b"><div class="module-head"><span class="icon">📅</span><h1>Module 10: SARIMA, SARIMAX and Fourier Terms</h1></div><h2>10.1 SARIMA</h2><p>SARIMA adds <strong>seasonal</strong> AR, differencing and MA terms at the seasonal lag:</p><p><strong>SARIMA(p, d, q)(P, D, Q)[m]</strong></p><ul>
+<li><code>(p, d, q)</code>: ordinary parts (short-term dependence).</li>
+<li><code>(P, D, Q)</code>: the same ideas at lags <code>m, 2m, 3m, …</code>.</li>
+<li><code>m</code>: the seasonal period (7 for weekly, 12 for monthly).</li>
+</ul><p>Typical example: <strong>SARIMA(1,0,1)(0,1,1)[7]</strong> = one seasonal difference (compare each day with the same weekday last week), plus short-term and seasonal MA terms.</p><pre data-lang="python"><code class="language-python">model = SARIMAX(
+    train,
+    order=(1, 0, 1),
+    seasonal_order=(0, 1, 1, 7),
+    trend="n",               # no constant when differencing is used
+)
+fitted = model.fit(disp=False)
+prediction = fitted.get_forecast(steps=28)
+</code></pre><h3>Choosing the seasonal orders</h3><ul>
+<li><code>D</code>: 1 if seasonality is strong and stable (seasonal strength &gt; 0.64), otherwise 0. Rarely more than 1.</li>
+<li><code>Q = 1</code> is very common after seasonal differencing (spike at lag <em>m</em> in the ACF).</li>
+<li><code>P = 1</code> if the PACF shows a spike at lag <em>m</em>.</li>
+<li>Keep <code>P</code> and <code>Q</code> at 0 or 1 in a first model.</li>
+</ul><h2>10.2 Seasonal periods that are too long</h2><p>SARIMA with <code>m = 365</code> on daily data is <strong>impractical</strong>: the state space has hundreds of hidden states, fitting is very slow and unstable, and you need many years of data. Alternatives:</p><ul>
+<li><strong>Fourier terms</strong> as external regressors (below).</li>
+<li><strong>STL + ARIMA</strong> (Module 11).</li>
+<li>Model a <strong>lower frequency</strong> (weekly or monthly aggregates).</li>
+</ul><h2>10.3 SARIMAX: adding external regressors</h2><p>The <strong>X</strong> adds external variables (exogenous regressors) to the model: regression with ARIMA errors.</p><p><code>y(t) = β·x(t) + ARIMA errors</code></p><p>Use cases: holiday indicators, promotions, price, weather, weekday dummies.</p><p><strong>Important:</strong> to forecast, you need the future values of <code>x</code>. Use variables you <em>know</em> in advance (calendar, planned promotions, holidays) or that you have forecast separately. Using a future value you would not have in production is leakage.</p><h2>10.4 Fourier terms for long or multiple seasonalities</h2><p>A smooth seasonal pattern with period <em>P</em> can be written as a sum of sines and cosines:</p><p><code>sin(2πk·t / P)</code> and <code>cos(2πk·t / P)</code>, for <code>k = 1 … K</code>.</p><ul>
+<li>Small <code>K</code> → smooth pattern; large <code>K</code> → flexible pattern. Choose <code>K</code> by AIC or validation.</li>
+<li>Works for periods like 365.25 and for <strong>multiple seasonalities</strong> (add terms for each).</li>
+</ul><pre data-lang="python"><code class="language-python">def fourier_terms(index, origin, period=365.25, K=2):
+    t = (index - origin).days.to_numpy()
+    columns = {}
+    for k in range(1, K + 1):
+        columns[f"sin_{k}"] = np.sin(2 * np.pi * k * t / period)
+        columns[f"cos_{k}"] = np.cos(2 * np.pi * k * t / period)
+    return pd.DataFrame(columns, index=index)
+</code></pre><p>Use a <strong>fixed origin date</strong> so training and future dates are on the same time scale.</p><p>A common practical combination for daily data:</p><ul>
+<li>weekday <strong>dummy variables</strong> (6 dummies; one weekday is the reference) for the weekly pattern,</li>
+<li><strong>Fourier terms</strong> for the yearly pattern,</li>
+<li><strong>ARIMA errors</strong> (<code>d = 0</code>) for short-term dependence.</li>
+</ul><pre data-lang="python"><code class="language-python">exog_train = fourier_terms(train.index, origin, K=2)
+for day in range(1, 7):
+    exog_train[f"dow_{day}"] = (train.index.dayofweek == day).astype(float)
+
+fitted = SARIMAX(train, exog=exog_train, order=(1, 0, 0), trend="c").fit(disp=False)
+# exog for the forecast period must be built the same way from future dates
+</code></pre><h2>10.5 Common mistakes</h2><ul>
+<li>Forgetting to build the <em>future</em> regressors the same way as the training ones.</li>
+<li>Including a regressor whose future value is unknown.</li>
+<li>Differencing twice (once via <code>d</code>/<code>D</code> and once manually).</li>
+<li>Searching too many seasonal orders.</li>
+</ul><div class="callout practice"><h3>Practice task (Module 10)</h3><p>On a daily series with a weekly pattern, fit <code>SARIMA(1,0,1)(0,1,1)[7]</code> and a Fourier+dummy SARIMAX model. Compare 14-day forecast errors.</p></div><div class="callout check"><h3>Check yourself (Module 10)</h3><ol>
+<li>What does <code>[7]</code> mean in <code>SARIMA(1,0,1)(0,1,1)[7]</code>?</li>
+<li>Why is <code>m = 365</code> impractical for daily data?</li>
+<li>Why can a regressor be a source of leakage?</li>
+<li>What does increasing <code>K</code> do to Fourier seasonality?</li>
+</ol></div><div class="pn"><a href="#s9">← Module 9</a><a href="#s11">Module 11 →</a></div></section><section class="module" id="s11" style="--hue:#10b981"><div class="module-head"><span class="icon">🧰</span><h1>Module 11: Other Classical Methods and Transformations</h1></div><h2>11.1 STL + ARIMA (or STL + ETS)</h2><ol>
+<li>Use <strong>STL</strong> to estimate the seasonal component.</li>
+<li><strong>Remove</strong> it to get a seasonally adjusted series.</li>
+<li>Forecast the adjusted series with ARIMA or ETS.</li>
+<li><strong>Add the seasonal pattern back</strong> (STL repeats the last seasonal cycle).</li>
+</ol><pre data-lang="python"><code class="language-python">from statsmodels.tsa.forecasting.stl import STLForecast
+from statsmodels.tsa.arima.model import ARIMA
+
+stl_forecaster = STLForecast(train, ARIMA, model_kwargs={"order": (0, 1, 1)}, period=7)
+fitted = stl_forecaster.fit()
+forecast = fitted.forecast(len(test))
+</code></pre><p>Pros: flexible seasonality, robust to outliers, easy to explain. Con: the seasonal pattern is assumed to stay as in the last cycle.</p><h2>11.2 Theta method</h2><p>A simple method that did well in forecasting competitions: it combines a long-term linear trend with a short-term smoothed level, after seasonal adjustment.</p><pre data-lang="python"><code class="language-python">from statsmodels.tsa.forecasting.theta import ThetaModel
+fitted = ThetaModel(train, period=7, deseasonalize=True, method="additive").fit()
+forecast = fitted.forecast(len(test))
+</code></pre><h2>11.3 Regression on trend and season</h2><pre data-lang="python"><code class="language-python">from sklearn.linear_model import LinearRegression
+
+X = fourier_terms(train.index, origin, K=3)
+X["trend_days"] = (train.index - origin).days
+regression = LinearRegression().fit(X, train)
+</code></pre><p>Simple, transparent and quick, but it assumes the seasonal shape and trend are fixed forever.</p><h2>11.4 Forecasting on a transformed scale</h2><p>To forecast on a log scale and report on the original scale:</p><pre data-lang="python"><code class="language-python">log_forecast = model_forecaster(np.log1p(history), index)
+forecast = np.expm1(log_forecast)           # also transform interval bounds
+</code></pre><p>Remember: the back-transformed point forecast is closer to the <strong>median</strong> than the mean, so it can be slightly low.</p><h2>11.5 Forecast combinations</h2><p><strong>Averaging the forecasts of several good, different models</strong> often beats the best single model, and reduces the risk of picking the wrong one. A simple average works well.</p><div class="callout practice"><h3>Practice task (Module 11)</h3><p>Fit STL + ARIMA and Theta on a seasonal series, then compute the <strong>average</strong> of their forecasts. Compare all three against the test data.</p></div><div class="callout check"><h3>Check yourself (Module 11)</h3><ol>
+<li>How does STL + ARIMA treat the seasonal component in the forecast?</li>
+<li>Why is a back-transformed log forecast biased low?</li>
+<li>Why can combining models help?</li>
+</ol></div><div class="pn"><a href="#s10">← Module 10</a><a href="#s12">Module 12 →</a></div></section><section class="module" id="s12" style="--hue:#06b6d4"><div class="module-head"><span class="icon">🤖</span><h1>Module 12: Machine Learning for Forecasting</h1></div><h2>12.1 Turning forecasting into supervised learning</h2><p>Build a table where each row is a time point, the <strong>target</strong> is <code>y(t)</code>, and <strong>features</strong> are things known <em>before</em> <code>t</code>.</p><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Feature type</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Lag features</strong></td>
+<td><code>y(t−1)</code>, <code>y(t−7)</code>, <code>y(t−14)</code>, <code>y(t−28)</code></td>
+</tr>
+<tr>
+<td><strong>Rolling features</strong></td>
+<td>mean and std of the last 7 or 28 values (computed on shifted data)</td>
+</tr>
+<tr>
+<td><strong>Calendar features</strong></td>
+<td>weekday, month, day of year, holiday, Fourier terms</td>
+</tr>
+<tr>
+<td><strong>External features</strong></td>
+<td>planned promotions, price, forecasted weather</td>
+</tr>
+</tbody>
+</table></div><pre data-lang="python"><code class="language-python">def make_features(y, lags=(1, 2, 3, 7, 14, 21, 28)):
+    features = pd.concat({f"lag_{k}": y.shift(k) for k in lags}, axis=1)
+    features["rolling_mean_7"] = y.shift(1).rolling(7).mean()    # shift first: no leakage
+    features["weekday"] = y.index.dayofweek
+    features["month"] = y.index.month
+    return features.dropna()
+</code></pre><p><strong>Leakage warning:</strong> a rolling mean must be computed on data <strong>shifted by 1</strong> (or more) so it does not include the value being predicted.</p><h2>12.2 Models</h2><ul>
+<li><strong>Random Forest:</strong> averages many decision trees; robust, little tuning.</li>
+<li><strong>Gradient boosting</strong> (scikit-learn <code>GradientBoostingRegressor</code>, LightGBM, XGBoost): usually the strongest tabular model; needs some tuning.</li>
+<li><strong>Linear models</strong> (Ridge, Lasso): good with many features and a clear trend.</li>
+</ul><h2>12.3 Multi-step forecasting strategies</h2><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Strategy</th>
+<th>How</th>
+<th>Pros</th>
+<th>Cons</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Recursive</strong></td>
+<td>predict one step; feed the prediction back as the next lag</td>
+<td>one model; simple</td>
+<td>errors compound over the horizon</td>
+</tr>
+<tr>
+<td><strong>Direct</strong></td>
+<td>a separate model for each horizon <code>h</code></td>
+<td>no error compounding</td>
+<td>many models</td>
+</tr>
+<tr>
+<td><strong>Multi-output</strong></td>
+<td>one model predicts all <code>h</code> values</td>
+<td>efficient</td>
+<td>needs suitable model</td>
+</tr>
+</tbody>
+</table></div><pre data-lang="python"><code class="language-python">def recursive_forecast(fitted, history, index, lags):
+    recent = list(history.iloc[-max(lags):])
+    predictions = []
+    for date in index:
+        row = {f"lag_{k}": recent[-k] for k in lags}
+        # add calendar features for `date` here
+        x = pd.DataFrame([row])
+        y_hat = float(fitted.predict(x)[0])
+        predictions.append(y_hat)
+        recent.append(y_hat)               # the prediction becomes the next lag
+    return pd.Series(predictions, index=index)
+</code></pre><h2>12.4 Limits of tree-based models</h2><ul>
+<li><strong>They cannot extrapolate:</strong> a tree predicts values it has seen. A trending series that leaves its historical range will be under-forecast. Fixes: forecast the <strong>differences</strong> or detrend first, or combine with a linear trend.</li>
+<li>Recursive forecasts can <strong>flatten</strong> towards the average at long horizons.</li>
+<li>They need enough history for lags and features.</li>
+</ul><h2>12.5 Validation and tuning</h2><p>Use <strong><code>TimeSeriesSplit</code></strong> (expanding window), never ordinary k-fold. Tune hyperparameters inside the training data. Do not tune on the test window; if you do, you need a further untouched test period.</p><pre data-lang="python"><code class="language-python">from sklearn.model_selection import TimeSeriesSplit, GridSearchCV
+from sklearn.ensemble import GradientBoostingRegressor
+
+search = GridSearchCV(
+    GradientBoostingRegressor(random_state=42),
+    param_grid={"n_estimators": [100, 200], "max_depth": [2, 3]},
+    cv=TimeSeriesSplit(n_splits=4, test_size=28),
+    scoring="neg_mean_absolute_error",
+)
+</code></pre><h2>12.6 When ML helps</h2><ul>
+<li>Many external variables with nonlinear effects.</li>
+<li>Many related series (one global model across series).</li>
+<li>Complex calendar effects.</li>
+</ul><p>For a <strong>single clean seasonal series</strong>, classical models are often just as good or better, and easier to explain. The right question is "does it beat a seasonal baseline in a fair test?", not "is it modern?"</p><div class="callout practice"><h3>Practice task (Module 12)</h3><p>Build lag and calendar features for a daily series, train a Random Forest, forecast 14 days recursively, and compare against seasonal naive and SARIMA.</p></div><div class="callout check"><h3>Check yourself (Module 12)</h3><ol>
+<li>Why must rolling features be computed on shifted data?</li>
+<li>What is the main weakness of recursive forecasting?</li>
+<li>Why can a Random Forest fail on a series with a strong upward trend?</li>
+<li>Why is ordinary k-fold wrong for forecasting?</li>
+</ol></div><div class="pn"><a href="#s11">← Module 11</a><a href="#s13">Module 13 →</a></div></section><section class="module" id="s13" style="--hue:#8b5cf6"><div class="module-head"><span class="icon">🎯</span><h1>Module 13: Uncertainty and Comparing Models</h1></div><h2>13.1 Prediction intervals</h2><p>A point forecast is the center of a distribution. A <strong>95% prediction interval</strong> says: <em>if the model assumptions hold, about 95% of future values should fall in this range</em>.</p><p>For many models, an approximate interval is <code>forecast ± 1.96 · σ(h)</code>, where <code>σ(h)</code> is the forecast error standard deviation at horizon <code>h</code>. It <strong>grows with the horizon</strong>.</p><p>Sources of uncertainty:</p><ol>
+<li>random noise in future values,</li>
+<li>uncertainty in the model parameters,</li>
+<li>uncertainty about the model itself,</li>
+<li>changes in the process (structural breaks).</li>
+</ol><p>Intervals from a model usually include only the first (and sometimes the second), so they tend to be <strong>too narrow</strong>.</p><h3>Interval methods</h3><ul>
+<li><strong>Model-based:</strong> from ARIMA, ETS (assume normal, constant-variance errors).</li>
+<li><strong>Empirical:</strong> take quantiles (2.5%, 97.5%) of past forecast errors and add them to the point forecast. Needed for models without native intervals (machine learning, Theta). Better when done per horizon.</li>
+<li><strong>Bootstrap:</strong> resample residuals to simulate future paths.</li>
+<li><strong>Quantile regression:</strong> train models to predict quantiles directly.</li>
+</ul><h2>13.2 Checking interval quality</h2><p><strong>Coverage:</strong> the share of actual values inside the interval. A 95% interval should cover about 95%.</p><pre data-lang="python"><code class="language-python">inside = ((actual &gt;= lower) &amp; (actual &lt;= upper)).mean()
+print(f"Coverage: {inside * 100:.1f}%")
+</code></pre><ul>
+<li>Much below 95%: intervals are <strong>too narrow</strong> (overconfident).</li>
+<li>Much above 95%: intervals are too wide (uninformative).</li>
+<li>With few evaluation points, coverage is noisy.</li>
+</ul><h2>13.3 Is model A really better than model B?</h2><p>With one test window, a 2% difference in RMSE can be luck. Two tools:</p><h3>Diebold-Mariano (DM) test</h3><ul>
+<li><strong>H0:</strong> both models have equal expected loss (for example squared error).</li>
+<li>Uses the differences in squared errors, with a variance estimate that accounts for autocorrelation (errors at multi-step horizons are autocorrelated).</li>
+<li>Small p-value: one model is significantly more accurate.</li>
+<li>Large p-value: the data cannot tell them apart; treat the models as tied.</li>
+</ul><h3>Practical habits</h3><ul>
+<li>Evaluate on <strong>several windows</strong> (rolling origin).</li>
+<li>Report differences with their <strong>uncertainty</strong>.</li>
+<li>Beware <strong>multiple comparisons</strong>: testing many models against one reference will produce some "significant" results by chance.</li>
+<li>Prefer the <strong>simpler</strong> model when the difference is not significant.</li>
+<li>Consider <strong>combining</strong> tied models.</li>
+</ul><h2>13.4 Communicating a forecast</h2><ul>
+<li>Show the point forecast <strong>and</strong> the interval.</li>
+<li>State the <strong>horizon</strong>, the <strong>metric</strong> and the <strong>evaluation method</strong>.</li>
+<li>State the assumptions (no major events, stable behaviour).</li>
+<li>Say what the forecast cannot know (promotions, outages, news).</li>
+</ul><div class="callout practice"><h3>Practice task (Module 13)</h3><p>Compute 95% empirical intervals from rolling-origin residuals. Measure coverage on a later window. Is it close to 95%?</p></div><div class="callout check"><h3>Check yourself (Module 13)</h3><ol>
+<li>What does 95% coverage mean?</li>
+<li>Why are model-based intervals often too narrow?</li>
+<li>What does a large Diebold-Mariano p-value tell you?</li>
+<li>Why should interval width grow with the horizon?</li>
+</ol></div><div class="pn"><a href="#s12">← Module 12</a><a href="#s14">Module 14 →</a></div></section><section class="module" id="s14" style="--hue:#ef4444"><div class="module-head"><span class="icon">🚀</span><h1>Module 14: Advanced Topics: Where to Go Next</h1></div><p>This module is a map, not a full treatment. Learn these after you are comfortable with Modules 0–13.</p><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Topic</th>
+<th>What it is</th>
+<th>When you need it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Multiple series and hierarchies</strong></td>
+<td>forecasts for many products/stores that must add up (store → region → total)</td>
+<td>retail, supply chain</td>
+</tr>
+<tr>
+<td><strong>Global models</strong></td>
+<td>one model trained across many series</td>
+<td>thousands of series</td>
+</tr>
+<tr>
+<td><strong>Intermittent demand</strong></td>
+<td>many zeros (Croston, TSB methods)</td>
+<td>spare parts, slow-moving products</td>
+</tr>
+<tr>
+<td><strong>Multivariate models (VAR)</strong></td>
+<td>series influence each other</td>
+<td>economics, finance</td>
+</tr>
+<tr>
+<td><strong>State space models, Kalman filter</strong></td>
+<td>flexible framework behind ETS and ARIMA</td>
+<td>missing data, time-varying parameters</td>
+</tr>
+<tr>
+<td><strong>Prophet</strong></td>
+<td>additive model with trend, seasonality, holidays; easy to use</td>
+<td>business series with holidays, missing data</td>
+</tr>
+<tr>
+<td><strong>Deep learning</strong> (LSTM, N-BEATS, Temporal Fusion Transformer)</td>
+<td>neural sequence models</td>
+<td>large data, many series, complex patterns</td>
+</tr>
+<tr>
+<td><strong>Probabilistic forecasting</strong></td>
+<td>full predictive distributions, quantile scores</td>
+<td>risk-sensitive decisions</td>
+</tr>
+<tr>
+<td><strong>Anomaly detection</strong></td>
+<td>find unusual points</td>
+<td>monitoring, fraud</td>
+</tr>
+<tr>
+<td><strong>Change-point detection</strong></td>
+<td>find where behaviour shifts</td>
+<td>structural breaks</td>
+</tr>
+<tr>
+<td><strong>Causal impact</strong></td>
+<td>effect of an intervention on a series</td>
+<td>marketing, policy</td>
+</tr>
+</tbody>
+</table></div><p><strong>Libraries to explore:</strong> <code>statsmodels</code>, <code>sktime</code>, <code>statsforecast</code> (fast classical models for many series), <code>darts</code>, <code>prophet</code>, <code>LightGBM</code>.</p><p><strong>Honest advice:</strong> many forecasting competitions have shown that <strong>simple, well-tuned, combined methods</strong> are very hard to beat. Deep learning helps most when you have <strong>many related series</strong> and a lot of data. Always compare against seasonal baselines.</p><h3>Choosing a method: a decision guide</h3><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Your data</th>
+<th>Start with</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Short series, no clear season</td>
+<td>naive, ETS, ARIMA</td>
+</tr>
+<tr>
+<td>One clear seasonality (weekly, monthly)</td>
+<td>seasonal naive, Holt-Winters, SARIMA, STL + ARIMA</td>
+</tr>
+<tr>
+<td>Long seasonality in daily data (yearly)</td>
+<td>Fourier terms (SARIMAX), STL, weekly/monthly aggregation</td>
+</tr>
+<tr>
+<td>Multiple seasonalities</td>
+<td>Fourier terms, TBATS, Prophet, ML with calendar features</td>
+</tr>
+<tr>
+<td>Strong external drivers (holidays, promotions)</td>
+<td>SARIMAX, Prophet, ML with features</td>
+</tr>
+<tr>
+<td>Many related series</td>
+<td>global ML models, hierarchical methods</td>
+</tr>
+<tr>
+<td>Count data with many zeros</td>
+<td>intermittent-demand methods</td>
+</tr>
+</tbody>
+</table></div><div class="pn"><a href="#s13">← Module 13</a><a href="#s15">Module 15 →</a></div></section><section class="module" id="s15" style="--hue:#14b8a6"><div class="module-head"><span class="icon">🏁</span><h1>Module 15: Doing a Complete Project</h1></div><h2>15.1 Project checklist</h2><p><strong>Data</strong></p><ul>
+<li><input disabled="" type="checkbox"/> Dataset has a date column, a numeric target, and enough history (at least 2–3 full seasonal cycles).</li>
+<li><input disabled="" type="checkbox"/> Source and licence documented.</li>
+<li><input disabled="" type="checkbox"/> Datetime index, sorted, no duplicate dates, frequency verified.</li>
+<li><input disabled="" type="checkbox"/> Abnormal values flagged; missing values handled with a stated reason.</li>
+<li><input disabled="" type="checkbox"/> If there are several files, overlaps and consistency checked.</li>
+</ul><p><strong>Analysis</strong></p><ul>
+<li><input disabled="" type="checkbox"/> Chronological split created <strong>before</strong> deep exploration.</li>
+<li><input disabled="" type="checkbox"/> Plots: full series, rolling mean/std, calendar patterns, decomposition.</li>
+<li><input disabled="" type="checkbox"/> Stationarity test, differencing decisions by rules stated in advance.</li>
+<li><input disabled="" type="checkbox"/> ACF/PACF interpreted.</li>
+</ul><p><strong>Modelling</strong></p><ul>
+<li><input disabled="" type="checkbox"/> Seasonal baselines first.</li>
+<li><input disabled="" type="checkbox"/> A small, explainable model search (not hundreds of combinations).</li>
+<li><input disabled="" type="checkbox"/> Several model families (baseline, classical, ML).</li>
+<li><input disabled="" type="checkbox"/> No test data used for fitting or selection (or the test period clearly documented as used for selection).</li>
+</ul><p><strong>Evaluation</strong></p><ul>
+<li><input disabled="" type="checkbox"/> Multiple metrics, with the horizon stated.</li>
+<li><input disabled="" type="checkbox"/> Rolling-origin evaluation if the data allows.</li>
+<li><input disabled="" type="checkbox"/> Residual diagnostics.</li>
+<li><input disabled="" type="checkbox"/> Significance test or an honest statement that small differences are weak evidence.</li>
+</ul><p><strong>Forecast and reporting</strong></p><ul>
+<li><input disabled="" type="checkbox"/> Future forecast with an interval.</li>
+<li><input disabled="" type="checkbox"/> Limitations written down.</li>
+<li><input disabled="" type="checkbox"/> README with results, how to run, repository structure.</li>
+<li><input disabled="" type="checkbox"/> Results table filled with real numbers from the final run.</li>
+</ul><h2>15.2 Common mistakes (and what they cost)</h2><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Mistake</th>
+<th>Consequence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Random train/test split</td>
+<td>leakage; inflated scores</td>
+</tr>
+<tr>
+<td>Skipping baselines</td>
+<td>no way to know if a model adds value</td>
+</tr>
+<tr>
+<td>Over-interpreting a short test window</td>
+<td>wrong model chosen</td>
+</tr>
+<tr>
+<td>Choosing a model after seeing the test result without saying so</td>
+<td>optimistic claims</td>
+</tr>
+<tr>
+<td>Over-differencing</td>
+<td>noisy forecasts</td>
+</tr>
+<tr>
+<td>Searching hundreds of orders</td>
+<td>overfitting; unexplainable model</td>
+</tr>
+<tr>
+<td>Using MAPE on data near zero or on Celsius</td>
+<td>misleading numbers</td>
+</tr>
+<tr>
+<td>Ignoring a suspicious data row</td>
+<td>distorts models that depend on recent values</td>
+</tr>
+<tr>
+<td>Reporting a forecast without an interval</td>
+<td>false certainty</td>
+</tr>
+<tr>
+<td>Forgetting future values of regressors</td>
+<td>unusable model</td>
+</tr>
+</tbody>
+</table></div><h2>15.3 Lessons from the two practice projects</h2><p>These come from the two projects built alongside this course (daily temperature in Delhi, and daily website visitors).</p><ol>
+<li><strong>Check the data before the models.</strong> One placeholder-like row at the end of a training set pushed a Naive forecast's error up sharply. Overlapping dates between files must be inspected.</li>
+<li><strong>Model the seasonality at the right scale.</strong> Yearly seasonality in temperature, weekly in website traffic. Models without a seasonal component performed far worse.</li>
+<li><strong>A short test window gives weak evidence.</strong> The ranking of the top models changed after fixing one training row, which is a reminder to use rolling-origin evaluation and significance tests.</li>
+<li><strong>Be honest about limitations.</strong> Every model, interval and test window has assumptions.</li>
+</ol><h2>15.4 Portfolio ideas by level</h2><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Level</th>
+<th>Project idea</th>
+<th>New skills</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Daily temperature, single seasonality</td>
+<td>cleaning, ADF, ARIMA, SARIMAX with Fourier terms, ML lags</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Daily website traffic</td>
+<td>weekly seasonality, SARIMA, rolling-origin, Diebold-Mariano</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Retail sales across stores/products</td>
+<td>multiple series, holidays/promotions, MASE, quantile intervals, tuned gradient boosting</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Hourly energy demand</td>
+<td>multiple seasonalities, weather regressors, probabilistic forecasts</td>
+</tr>
+</tbody>
+</table></div><div class="pn"><a href="#s14">← Module 14</a><a href="#s16">Appendix A →</a></div></section><section class="module" id="s16" style="--hue:#6366f1"><div class="module-head"><span class="icon">📖</span><h1>Appendix A: Glossary</h1></div><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ACF / PACF</strong></td>
+<td>autocorrelation and partial autocorrelation functions</td>
+</tr>
+<tr>
+<td><strong>ADF test</strong></td>
+<td>tests for a unit root (non-stationarity)</td>
+</tr>
+<tr>
+<td><strong>AIC</strong></td>
+<td>information criterion; lower is better; compares models on the same data</td>
+</tr>
+<tr>
+<td><strong>AR / MA / ARIMA</strong></td>
+<td>autoregressive / moving average / integrated model family</td>
+</tr>
+<tr>
+<td><strong>Baseline</strong></td>
+<td>simple benchmark forecast</td>
+</tr>
+<tr>
+<td><strong>Bias</strong></td>
+<td>average forecast error (actual − forecast)</td>
+</tr>
+<tr>
+<td><strong>Coverage</strong></td>
+<td>share of actual values inside a prediction interval</td>
+</tr>
+<tr>
+<td><strong>Decomposition</strong></td>
+<td>splitting a series into trend, seasonal, residual</td>
+</tr>
+<tr>
+<td><strong>Differencing</strong></td>
+<td>subtracting a previous value to remove trend/seasonality</td>
+</tr>
+<tr>
+<td><strong>Diebold-Mariano test</strong></td>
+<td>tests whether two forecasts differ significantly in accuracy</td>
+</tr>
+<tr>
+<td><strong>Exogenous variable (X)</strong></td>
+<td>external predictor used by a model</td>
+</tr>
+<tr>
+<td><strong>Fourier terms</strong></td>
+<td>sine/cosine regressors that represent smooth seasonality</td>
+</tr>
+<tr>
+<td><strong>Frequency</strong></td>
+<td>spacing of observations (daily, monthly)</td>
+</tr>
+<tr>
+<td><strong>Horizon</strong></td>
+<td>how far ahead the forecast goes</td>
+</tr>
+<tr>
+<td><strong>Leakage</strong></td>
+<td>information from the future (or test data) used in training</td>
+</tr>
+<tr>
+<td><strong>Lag</strong></td>
+<td>a time shift</td>
+</tr>
+<tr>
+<td><strong>MAE / RMSE / MAPE / MASE</strong></td>
+<td>error metrics (see Module 6)</td>
+</tr>
+<tr>
+<td><strong>Naive forecast</strong></td>
+<td>last observed value repeated</td>
+</tr>
+<tr>
+<td><strong>Prediction interval</strong></td>
+<td>range expected to contain future values</td>
+</tr>
+<tr>
+<td><strong>Residual</strong></td>
+<td>actual minus fitted/forecast value</td>
+</tr>
+<tr>
+<td><strong>Resampling</strong></td>
+<td>changing the frequency of a series</td>
+</tr>
+<tr>
+<td><strong>Rolling origin</strong></td>
+<td>repeated forecasting from successive start points</td>
+</tr>
+<tr>
+<td><strong>Seasonality</strong></td>
+<td>repeating pattern with fixed period</td>
+</tr>
+<tr>
+<td><strong>Stationarity</strong></td>
+<td>stable mean, variance and autocorrelation over time</td>
+</tr>
+<tr>
+<td><strong>STL</strong></td>
+<td>seasonal-trend decomposition using LOESS</td>
+</tr>
+<tr>
+<td><strong>Trend</strong></td>
+<td>long-term direction</td>
+</tr>
+<tr>
+<td><strong>Unit root</strong></td>
+<td>a source of non-stationarity (as in a random walk)</td>
+</tr>
+<tr>
+<td><strong>White noise</strong></td>
+<td>unpredictable, independent random values</td>
+</tr>
+</tbody>
+</table></div><div class="pn"><a href="#s15">← Module 15</a><a href="#s17">Appendix B →</a></div></section><section class="module" id="s17" style="--hue:#ec4899"><div class="module-head"><span class="icon">🔑</span><h1>Appendix B: Answer Key</h1></div><p><strong>Module 0</strong></p><ol>
+<li>Observations are dependent and ordered; shuffling would let the model use future values to predict the past (leakage) and destroy the time structure.</li>
+<li>The number of future periods being forecast.</li>
+<li>Define the problem; collect and clean the data.</li>
+</ol><p><strong>Module 1</strong></p><ol>
+<li>It creates a regular daily index; missing days appear as NaN rows.</li>
+<li><code>sum</code>.</li>
+<li>It fills the past with future values, which would not be available when forecasting.</li>
+<li><code>shift(7)</code> returns the value 7 rows earlier; <code>diff(7)</code> returns the current value minus that value.</li>
+</ol><p><strong>Module 2</strong></p><ol>
+<li>Seasonality has a fixed, known period; cycles vary in length.</li>
+<li>When the seasonal swing grows with the level (multiplicative pattern).</li>
+<li>The centred moving average needs observations on both sides, which do not exist at the ends.</li>
+<li>
+<ol start="12">
+<li></li>
+</ol>
+</li>
+</ol><p><strong>Module 3</strong></p><ol>
+<li>It averages out the seasonal pattern and leaves the level/trend.</li>
+<li>A partial year would give a misleading average.</li>
+<li>It shows how the weekday pattern changes between months (the interaction).</li>
+</ol><p><strong>Module 4</strong></p><ol>
+<li>ADF: unit root / non-stationary. KPSS: the series is stationary.</li>
+<li>The ADF test targets stochastic trends and has low power against deterministic seasonality; the mean can still change with the season.</li>
+<li>The last observed value (the naive forecast).</li>
+<li>Strong negative lag-1 autocorrelation; higher variance after differencing.</li>
+</ol><p><strong>Module 5</strong></p><ol>
+<li>ACF includes indirect effects through shorter lags; PACF removes them and shows the direct effect of that lag.</li>
+<li>Weekly seasonality (period 7).</li>
+<li>There is remaining autocorrelation: the model has not captured all structure.</li>
+</ol><p><strong>Module 6</strong></p><ol>
+<li>Random splitting or k-fold; fitting scalers/imputers on all data; features using future values (also choosing models after seeing test results).</li>
+<li>The model beats the in-sample naive forecast.</li>
+<li>It averages performance over several forecast windows and origins.</li>
+<li>Accuracy depends strongly on the horizon.</li>
+</ol><p><strong>Module 7</strong></p><ol>
+<li>Seasonal naive (or seasonal mean).</li>
+<li>It repeats one value for all future dates.</li>
+</ol><p><strong>Module 8</strong></p><ol>
+<li>The level follows the latest observation almost exactly.</li>
+<li>Trends rarely continue indefinitely; damping flattens the forecast and reduces overshoot.</li>
+<li>When the seasonal swing grows with the level (data must be positive).</li>
+</ol><p><strong>Module 9</strong></p><ol>
+<li>The number of times the series is differenced.</li>
+<li>AIC compares likelihoods of the same data; differencing changes the data.</li>
+<li>It converges to a flat line or constant: it cannot reproduce the seasonal pattern.</li>
+<li>It overfits the training data and is hard to explain.</li>
+</ol><p><strong>Module 10</strong></p><ol>
+<li>The seasonal period is 7.</li>
+<li>The state space becomes huge, so fitting is slow and unstable and needs many years of data.</li>
+<li>If the regressor's future value would not be known in practice.</li>
+<li>It lets the seasonal shape become more flexible (less smooth).</li>
+</ol><p><strong>Module 11</strong></p><ol>
+<li>It repeats the seasonal pattern from the last cycle and adds it to the forecast of the adjusted series.</li>
+<li>Back-transforming the mean on log scale gives approximately the median, which is lower than the mean for skewed data.</li>
+<li>Errors from different models partly cancel, so combinations are more stable.</li>
+</ol><p><strong>Module 12</strong></p><ol>
+<li>Otherwise they would include the value being predicted (leakage).</li>
+<li>Errors compound because predictions are fed back as inputs.</li>
+<li>Trees cannot predict outside the range of values seen in training.</li>
+<li>It mixes future and past observations across folds, leaking information.</li>
+</ol><p><strong>Module 13</strong></p><ol>
+<li>About 95% of actual values fall inside the interval.</li>
+<li>They include only some sources of uncertainty (usually just random noise).</li>
+<li>The two models' accuracy cannot be distinguished with the available data.</li>
+<li>Forecast errors accumulate the further ahead we look.</li>
+</ol><div class="pn"><a href="#s16">← Appendix A</a><a href="#s18">Appendix C →</a></div></section><section class="module" id="s18" style="--hue:#f59e0b"><div class="module-head"><span class="icon">💻</span><h1>Appendix C: Quick Code Reference (statsmodels and pandas)</h1></div><pre data-lang="python"><code class="language-python"># Time index
+df["date"] = pd.to_datetime(df["date"]); df = df.set_index("date").asfreq("D")
+
+# Resample and rolling
+y.resample("W").sum(); y.rolling(7).mean(); y.diff(7)
+
+# Decomposition
+from statsmodels.tsa.seasonal import seasonal_decompose, STL
+seasonal_decompose(y, model="additive", period=7); STL(y, period=7).fit()
+
+# Stationarity and autocorrelation
+from statsmodels.tsa.stattools import adfuller, kpss
+from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
+from statsmodels.stats.diagnostic import acorr_ljungbox
+
+# Models
+from statsmodels.tsa.holtwinters import ExponentialSmoothing
+from statsmodels.tsa.arima.model import ARIMA
+from statsmodels.tsa.statespace.sarimax import SARIMAX
+from statsmodels.tsa.forecasting.stl import STLForecast
+from statsmodels.tsa.forecasting.theta import ThetaModel
+
+# Forecast with interval
+pred = fitted.get_forecast(steps=h)
+mean, interval = pred.predicted_mean, pred.conf_int(alpha=0.05)
+
+# ML validation
+from sklearn.model_selection import TimeSeriesSplit
+</code></pre><div class="pn"><a href="#s17">← Appendix B</a><a href="#s19">Appendix D →</a></div></section><section class="module" id="s19" style="--hue:#10b981"><div class="module-head"><span class="icon">🎬</span><h1>Appendix D: Videos and Further Reading</h1></div><h2>D.1 Free books and documentation</h2><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Use it for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Forecasting: Principles and Practice</em> by Rob J. Hyndman and George Athanasopoulos (free online at otexts.com/fpp3)</td>
+<td>the best beginner-to-intermediate text; the examples use R, but the concepts match this course</td>
+</tr>
+<tr>
+<td>statsmodels documentation, "Time Series Analysis" section (statsmodels.org)</td>
+<td>Python reference for ARIMA, SARIMAX, ETS, STL</td>
+</tr>
+<tr>
+<td>scikit-learn documentation, <code>TimeSeriesSplit</code></td>
+<td>validation for ML models</td>
+</tr>
+</tbody>
+</table></div><h2>D.2 YouTube: links I could verify</h2><p>I found these links through the sites that publish them. YouTube changes often, so if a link no longer works, search for the title.</p><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Video / playlist</th>
+<th>By</th>
+<th>Best for</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Practical Time Series Forecasting</strong> (39 videos, listed by book chapter: autocorrelation, ARIMA, regression with external information, and more)</td>
+<td>Galit Shmueli</td>
+<td>a structured, beginner-friendly series</td>
+<td><a href="https://www.youtube.com/playlist?list=PLoK4oIB1jeK0LHLbZW3DTT05e4srDYxFq">https://www.youtube.com/playlist?list=PLoK4oIB1jeK0LHLbZW3DTT05e4srDYxFq</a></td>
+</tr>
+<tr>
+<td><strong>Time Series Analysis and Forecasting</strong>, 40 lecture videos</td>
+<td>Swayam Prabha (Indian national online-learning programme)</td>
+<td>a full university-style lecture course (components, decomposition, trend, multivariate processes). More mathematical and slower-paced</td>
+<td><a href="https://www.youtube.com/playlist?list=PLqMl6r3x6BUSP2fYr2rd3NMRTT4_5uTvV">https://www.youtube.com/playlist?list=PLqMl6r3x6BUSP2fYr2rd3NMRTT4_5uTvV</a></td>
+</tr>
+<tr>
+<td><strong>Forecasting and big data: interview with Prof. Rob Hyndman</strong></td>
+<td>Rob J. Hyndman (interview)</td>
+<td>an overview of how forecasting experts think about the field; short</td>
+<td><a href="https://www.youtube.com/watch?v=qvcUch7H2Eg">https://www.youtube.com/watch?v=qvcUch7H2Eg</a></td>
+</tr>
+<tr>
+<td><strong>Feature-based forecasting algorithms for large collections of time series</strong></td>
+<td>Rob J. Hyndman (talk)</td>
+<td><em>advanced</em>: forecasting many series at once. Watch after Module 14</td>
+<td><a href="https://www.youtube.com/watch?v=IRCfeG2_SKs">https://www.youtube.com/watch?v=IRCfeG2_SKs</a></td>
+</tr>
+<tr>
+<td><strong>Rob Hyndman's seminars page</strong> (links to his YouTube talks playlist)</td>
+<td>Rob J. Hyndman</td>
+<td>a list of his talks on forecasting</td>
+<td><a href="https://robjhyndman.com/seminars/">https://robjhyndman.com/seminars/</a></td>
+</tr>
+</tbody>
+</table></div><h2>D.3 YouTube: channels to search for</h2><p>I could not confirm direct links for these, so search for the channel and title on YouTube. They were repeatedly recommended in the search results I looked at.</p><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Channel / series</th>
+<th>Search for</th>
+<th>Best for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Aric LaBarr</strong> (North Carolina State University)</td>
+<td>"Aric LaBarr time series"</td>
+<td>short (about 5-minute) concept explanations, for example time series decomposition</td>
+</tr>
+<tr>
+<td><strong>ritvikmath</strong></td>
+<td>"ritvikmath Time Series Talk"</td>
+<td>the short "Time Series Talk" series: autoregressive models, ARIMA, seasonal ARIMA</td>
+</tr>
+</tbody>
+</table></div><h2>D.4 Suggested watching order</h2><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>After module</th>
+<th>Watch</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td>Aric LaBarr on decomposition</td>
+</tr>
+<tr>
+<td>4–5</td>
+<td>Shmueli on autocorrelation; ritvikmath on autoregressive models</td>
+</tr>
+<tr>
+<td>9–10</td>
+<td>ritvikmath on ARIMA and Seasonal ARIMA; Shmueli on ARIMA</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Hyndman interview</td>
+</tr>
+<tr>
+<td>14</td>
+<td>Hyndman talk on forecasting many series</td>
+</tr>
+</tbody>
+</table></div><h2>D.5 Practice datasets (Kaggle)</h2><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Dataset</th>
+<th>Skills</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Daily Delhi climate (<code>sumanthvrao/daily-climate-time-series-data</code>)</td>
+<td>yearly seasonality, ARIMA, SARIMAX with Fourier terms</td>
+</tr>
+<tr>
+<td>Daily website visitors (<code>bobnau/daily-website-visitors</code>)</td>
+<td>weekly seasonality, SARIMA, rolling-origin evaluation</td>
+</tr>
+<tr>
+<td>A retail sales dataset with several stores</td>
+<td>multiple series, holidays, promotions</td>
+</tr>
+<tr>
+<td>An hourly energy demand dataset</td>
+<td>multiple seasonalities, weather regressors</td>
+</tr>
+</tbody>
+</table></div><p>Always check each dataset's licence on its Kaggle page before reusing or redistributing it.</p><p><em>End of course. Re-do the practice tasks on a new dataset after you finish. Re-doing them on new data is the fastest way to make the ideas stick.</em></p><div class="pn"><a href="#s18">← Appendix C</a><span></span></div></section></main></div>
+<footer>Made with ❤️ for learners · <a href="../index.html">Back to all courses</a></footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="../assets/course.js"></script></body></html>

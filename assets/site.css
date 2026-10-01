@@ -1,0 +1,37 @@
+:root{--bg:#f6f7fb;--card:#fff;--text:#1f2340;--muted:#5b6182;--rule:#e4e7f2;--shadow:0 10px 30px rgba(40,50,120,.10);--brand:#6366f1;--brand2:#ec4899}
+[data-theme=dark]{--bg:#0e1022;--card:#171a33;--text:#e8eaff;--muted:#a3a8d4;--rule:#2a2e55;--shadow:0 10px 30px rgba(0,0,0,.45)}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{margin:0;background:var(--bg);color:var(--text);font:17px/1.7 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;position:relative}
+body::before{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(600px 400px at 8% 0,rgba(99,102,241,.16),transparent),radial-gradient(500px 400px at 100% 20%,rgba(236,72,153,.13),transparent),radial-gradient(600px 500px at 30% 100%,rgba(16,185,129,.10),transparent)}
+h1,h2,h3{font-family:Poppins,Inter,system-ui,sans-serif;line-height:1.25}
+a{color:var(--brand)}
+.topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:18px;padding:12px 24px;background:color-mix(in srgb,var(--card) 82%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--rule)}
+.logo{font:700 20px Poppins,sans-serif;text-decoration:none;background:linear-gradient(90deg,var(--brand),var(--brand2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.topbar nav{margin-left:auto;display:flex;gap:16px;align-items:center}
+.topbar nav a{color:var(--muted);text-decoration:none;font-weight:600;font-size:15px}.topbar nav a:hover{color:var(--brand)}
+.iconbtn{border:1px solid var(--rule);background:var(--card);color:var(--text);border-radius:10px;padding:6px 10px;cursor:pointer;font-size:16px}
+.btn{display:inline-block;padding:12px 22px;border-radius:14px;font-weight:700;text-decoration:none;color:#fff;background:linear-gradient(135deg,var(--brand),var(--brand2));box-shadow:0 8px 20px rgba(99,102,241,.35);transition:transform .2s}
+.btn:hover{transform:translateY(-3px)}.btn.ghost{background:var(--card);color:var(--text);box-shadow:none;border:1px solid var(--rule)}
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+.hero{padding:70px 0 40px;text-align:center}
+.hero h1{font-size:clamp(34px,6vw,60px);margin:0 0 16px}
+.grad{background:linear-gradient(90deg,#6366f1,#ec4899,#f59e0b);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{max-width:680px;margin:0 auto 28px;color:var(--muted);font-size:19px}
+.hero .btn{margin:6px}
+section.block{padding:36px 0}
+section.block>h2{font-size:30px;margin:0 0 6px}.sub{color:var(--muted);margin:0 0 24px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px}
+.track{--c:var(--brand);position:relative;padding:24px;border-radius:22px;background:var(--card);box-shadow:var(--shadow);border:1px solid var(--rule);cursor:pointer;overflow:hidden;transition:transform .25s}
+.track::before{content:"";position:absolute;inset:0 0 auto 0;height:6px;background:var(--c)}
+.track:hover,.track.on{transform:translateY(-6px);border-color:var(--c)}
+.track .ic{font-size:36px;display:inline-grid;place-items:center;width:64px;height:64px;border-radius:18px;background:color-mix(in srgb,var(--c) 16%,var(--card))}
+.track h3{margin:14px 0 6px}.track p{margin:0 0 12px;color:var(--muted);font-size:15px}
+.tag{display:inline-block;padding:3px 12px;border-radius:99px;font-size:13px;font-weight:700;color:#fff;background:var(--c)}.tag.soon{background:var(--muted);opacity:.7}
+.course{--c:var(--brand);display:flex;flex-direction:column;gap:10px;padding:26px;border-radius:22px;background:var(--card);box-shadow:var(--shadow);border:1px solid var(--rule);text-decoration:none;color:inherit;transition:transform .25s}
+.course:hover{transform:translateY(-6px)}
+.course h3{margin:0;font-size:21px}.course p{margin:0;color:var(--muted);font-size:15px}
+.meta{display:flex;flex-wrap:wrap;gap:8px}.meta span{font-size:13px;font-weight:600;padding:3px 11px;border-radius:99px;background:color-mix(in srgb,var(--c) 15%,var(--card));color:var(--c)}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px;counter-reset:s}
+.steps div{counter-increment:s;padding:22px;border-radius:20px;background:var(--card);border:1px solid var(--rule);box-shadow:var(--shadow)}
+.steps div::before{content:counter(s);display:grid;place-items:center;width:38px;height:38px;border-radius:50%;margin-bottom:10px;color:#fff;font-weight:800;background:linear-gradient(135deg,var(--brand),var(--brand2))}
+footer{margin-top:40px;padding:30px 24px;text-align:center;color:var(--muted);border-top:1px solid var(--rule);font-size:15px}
